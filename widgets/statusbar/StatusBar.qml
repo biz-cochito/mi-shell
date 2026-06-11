@@ -11,7 +11,7 @@ PanelWindow {
         left: true
         right: true
     }
-    height: barHeight
+    implicitHeight: 32
     color: "transparent"
 
     SystemClock {

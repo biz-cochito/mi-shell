@@ -1,5 +1,7 @@
+import QtCore
 import QtQuick
 import Quickshell
+import QtQuick.Controls.Basic
 import "../../theme"
 
 PanelWindow {
@@ -17,19 +19,22 @@ PanelWindow {
     exclusionMode: ExclusionMode.Ignore
 
     margins {
-        right: opened ? barHeight / 3 : -width
-        top: barHeight + (barHeight / 3)
-        bottom: barHeight / 3
+        right: opened ? 8 : -width
+        top: 40
+        bottom: 8
     }
 
     Behavior on margins.right {
-        NumberAnimation { duration: 300; easing.type: Easing.OutCubic }
+        NumberAnimation {
+            duration: 300
+            easing.type: Easing.OutCubic
+        }
     }
 
     Rectangle {
         anchors.fill: parent
         color: Theme.background
-        radius: 8
+        radius: 0
     }
 
     Column {
@@ -46,8 +51,14 @@ PanelWindow {
                 color: Theme.accent
                 font.bold: true
             }
-            Text { text: "󰉋  Files"; color: Theme.text }
-            Text { text: "󰌹  Links"; color: Theme.text }
+            Text {
+                text: "󰉋  Files"
+                color: Theme.text
+            }
+            Text {
+                text: "󰌹  Links"
+                color: Theme.text
+            }
         }
 
         Rectangle {
@@ -60,13 +71,31 @@ PanelWindow {
             width: parent.width
             height: parent.height - 45
             color: Theme.surface
-            radius: 10
+            radius: 0
 
-            Text {
-                anchors.centerIn: parent
-                text: "LLM Chat Placeholder"
-                color: Theme.textMuted
+            ScrollView {
+                id: view
+                anchors.fill: parent
+
+                TextArea {
+                    id: control
+                    text: activeFocus ? "I have active focus!" : "I do not have active focus"
+                    focus: true
+                    KeyNavigation.priority: KeyNavigation.BeforeItem
+                    KeyNavigation.tab: textField
+                    background: Rectangle {
+                        implicitWidth: 200
+                        implicitHeight: 40
+                        border.color: control.enabled ? "#d1be2b" : "transparent"
+                    }
+                    
+                }
             }
+            // Text {
+            //     anchors.centerIn: parent
+            //     text: "LLM Chat Placeholder"
+            //     color: Theme.textMuted
+            // }
         }
     }
 }

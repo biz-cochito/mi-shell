@@ -6,7 +6,6 @@ import "./widgets/rightpanel"
 
 ShellRoot {
     id: shell
-    property int barHeight: 40
 
     StatusBar {
         id: statusBar
@@ -19,9 +18,9 @@ ShellRoot {
     Connections {
         target: shell
         function onBarHeightChanged() {
-            statusBar.height = shell.barHeight
-            leftPanel.margins.top = shell.barHeight + (shell.barHeight / 4)
-            rightPanel.margins.top = shell.barHeight + (shell.barHeight / 4)
+            statusBar.height = 32
+            leftPanel.margins.top = 40
+            rightPanel.margins.top = 40
         }
     }
 }

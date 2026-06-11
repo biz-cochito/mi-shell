@@ -1,10 +1,13 @@
 import QtQuick
 import Quickshell
+import Quickshell.Widgets
 import "../../theme"
 
 PanelWindow {
     id: leftPanel
     property bool opened: false
+    
+    // MarginWrapperManager { margin: 5 }
 
     anchors {
         top: true
@@ -17,9 +20,9 @@ PanelWindow {
     exclusionMode: ExclusionMode.Ignore
 
     margins {
-        top: barHeight + (barHeight / 2)
-        left: opened ? barHeight: -width
-        bottom: barHeight / 2
+        top: 40
+        left: opened ? 8: -width
+        bottom: 8
     }
 
     Behavior on margins.left {
@@ -29,13 +32,13 @@ PanelWindow {
     Rectangle {
         anchors.fill: parent
         color: Theme.background
-        radius: 12
+        radius: 0
     }
 
     Column {
         anchors.fill: parent
-        anchors.margins: 20
-        spacing: 20
+        anchors.margins: 10
+        spacing: 10
 
         Text {
             text: "Left Panel"

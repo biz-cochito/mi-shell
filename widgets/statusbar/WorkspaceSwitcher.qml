@@ -10,11 +10,11 @@ Row {
         model: Hyprland.workspaces
 
         delegate: Rectangle {
-            width: 34
+            width: 28
             height: 24
-            radius: 4
+            radius: 0
             color: modelData.focused ? Theme.accent : (modelData.active ? Theme.surfaceActive : "transparent")
-            border.color: Theme.border
+            border.color: Theme.accent
             border.width: 1
 
             Text {
