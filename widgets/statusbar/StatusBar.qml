@@ -11,7 +11,7 @@ PanelWindow {
         right: true
     }
     height: 32
-    color: "#1e1e2e"
+    color: "#7e9ece"
 
     SystemClock {
         id: systemClock
@@ -37,7 +37,7 @@ PanelWindow {
 
                 Text {
                     anchors.centerIn: parent
-                    text: "󰍜"
+                    text: ""
                     color: leftPanel && leftPanel.opened ? "#89b4fa" : "#cdd6f4"
                     font.pixelSize: 16
                 }
@@ -57,6 +57,19 @@ PanelWindow {
             }
 
             WorkspaceSwitcher {}
+        }
+
+        Row {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            spacing: 10
+
+            Text {
+                anchors.verticalCenter: parent.verticalCenter
+                text: ""
+                color: rightPanel && rightPanel.opened ? "#89b4fa" : "#cdd6f4"
+                font.pixelSize: 18
+            }
         }
 
         Row {
