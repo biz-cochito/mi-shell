@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import "../../theme"
 
 PanelWindow {
     id: leftPanel
@@ -11,38 +12,46 @@ PanelWindow {
         left: true
     }
     width: 300
-    color: "#181825"
-    
-    exclusionMode: ExclusionMode.None
-    
+    color: "transparent"
+
+    exclusionMode: ExclusionMode.Ignore
+
     margins {
-        left: opened ? 0 : -width
+        top: barHeight + (barHeight / 2)
+        left: opened ? barHeight: -width
+        bottom: barHeight / 2
     }
 
     Behavior on margins.left {
         NumberAnimation { duration: 300; easing.type: Easing.OutCubic }
     }
-    
+
+    Rectangle {
+        anchors.fill: parent
+        color: Theme.background
+        radius: 12
+    }
+
     Column {
         anchors.fill: parent
         anchors.margins: 20
         spacing: 20
-        
-        Text { 
+
+        Text {
             text: "Left Panel"
-            color: "#89b4fa"
+            color: Theme.accent
             font.pixelSize: 20
             font.bold: true
         }
-        
+
         Rectangle {
             width: parent.width - 40
             height: 1
-            color: "#313244"
+            color: Theme.border
         }
 
-        Text { text: "Settings"; color: "#cdd6f4" }
-        Text { text: "Configuration"; color: "#cdd6f4" }
-        Text { text: "Hyprland Toggles"; color: "#cdd6f4" }
+        Text { text: "Settings"; color: Theme.text }
+        Text { text: "Configuration"; color: Theme.text }
+        Text { text: "Hyprland Toggles"; color: Theme.text }
     }
 }

@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import "../../theme"
 
 PanelWindow {
     property var leftPanel
@@ -10,8 +11,8 @@ PanelWindow {
         left: true
         right: true
     }
-    height: 32
-    color: "#7e9ece"
+    height: barHeight
+    color: "transparent"
 
     SystemClock {
         id: systemClock
@@ -20,8 +21,8 @@ PanelWindow {
 
     Rectangle {
         anchors.fill: parent
-        color: "#1e1e2e"
-        
+        color: Theme.background
+
         Row {
             anchors.left: parent.left
             anchors.leftMargin: 10
@@ -38,7 +39,7 @@ PanelWindow {
                 Text {
                     anchors.centerIn: parent
                     text: ""
-                    color: leftPanel && leftPanel.opened ? "#89b4fa" : "#cdd6f4"
+                    color: leftPanel && leftPanel.opened ? Theme.accent : Theme.text
                     font.pixelSize: 16
                 }
             }
@@ -46,14 +47,14 @@ PanelWindow {
             Text {
                 anchors.verticalCenter: parent.verticalCenter
                 text: "Omarchy"
-                color: "#cdd6f4"
+                color: Theme.text
                 font.bold: true
             }
 
             Rectangle {
                 width: 1
                 height: 20
-                color: "#313244"
+                color: Theme.border
             }
 
             WorkspaceSwitcher {}
@@ -67,7 +68,7 @@ PanelWindow {
             Text {
                 anchors.verticalCenter: parent.verticalCenter
                 text: ""
-                color: rightPanel && rightPanel.opened ? "#89b4fa" : "#cdd6f4"
+                color: rightPanel && rightPanel.opened ? Theme.accent : Theme.text
                 font.pixelSize: 18
             }
         }
@@ -81,7 +82,7 @@ PanelWindow {
             Text {
                 anchors.verticalCenter: parent.verticalCenter
                 text: Qt.formatDateTime(systemClock.date, "ddd dd MMM  hh:mm")
-                color: "#cdd6f4"
+                color: Theme.text
             }
 
             // Right Toggle Button
@@ -94,7 +95,7 @@ PanelWindow {
                 Text {
                     anchors.centerIn: parent
                     text: "󰂺"
-                    color: rightPanel && rightPanel.opened ? "#89b4fa" : "#cdd6f4"
+                    color: rightPanel && rightPanel.opened ? Theme.accent : Theme.text
                     font.pixelSize: 18
                 }
             }
