@@ -19,8 +19,8 @@ ShellRoot {
         target: shell
         function onBarHeightChanged() {
             statusBar.height = 32
-            leftPanel.margins.top = 40
-            rightPanel.margins.top = 40
+            leftPanel.margins.top = 72
+            rightPanel.margins.top = 72
         }
     }
 }

@@ -2,11 +2,13 @@ import QtCore
 import QtQuick
 import Quickshell
 import QtQuick.Controls.Basic
+import Quickshell.Hyprland
 import "../../theme"
 
 PanelWindow {
     id: rightPanel
     property bool opened: false
+    focusable: true
 
     anchors {
         top: true
@@ -18,9 +20,13 @@ PanelWindow {
 
     exclusionMode: ExclusionMode.Ignore
 
+    HyprlandFocusGrab {
+      id: grab
+      windows: [ rightPanel ]
+    }
     margins {
         right: opened ? 8 : -width
-        top: 40
+        top: 72
         bottom: 8
     }
 

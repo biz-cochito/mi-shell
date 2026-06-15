@@ -1,6 +1,8 @@
 import QtQuick
+import QtQuick.Layouts
 import Quickshell
 import Quickshell.Widgets
+import Quickshell.Hyprland
 import "../../theme"
 
 PanelWindow {
@@ -9,6 +11,10 @@ PanelWindow {
     
     // MarginWrapperManager { margin: 5 }
 
+    HyprlandFocusGrab {
+      id: grab
+      windows: [ window ]
+    }
     anchors {
         top: true
         bottom: true
@@ -20,7 +26,7 @@ PanelWindow {
     exclusionMode: ExclusionMode.Ignore
 
     margins {
-        top: 40
+        top: 72
         left: opened ? 8: -width
         bottom: 8
     }
@@ -39,14 +45,27 @@ PanelWindow {
         anchors.fill: parent
         anchors.margins: 10
         spacing: 10
+        
+        Rectangle {
 
-        Text {
-            text: "Left Panel"
-            color: Theme.accent
-            font.pixelSize: 20
-            font.bold: true
+            RowLayout {
+                anchors.fill: parent
+                spacing: 6
+            
+                Rectangle {
+                    color: 'azure'
+                    Layout.preferredWidth: 50
+                    Layout.preferredHeight: 42
+                    Text {
+                        text: "Left"
+                        color: Theme.accent
+                        font.pixelSize: 20
+                        font.bold: true
+                    }
+                }
+                
+            }
         }
-
         Rectangle {
             width: parent.width - 40
             height: 1
