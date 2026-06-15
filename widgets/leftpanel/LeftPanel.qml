@@ -1,15 +1,13 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-import Quickshell.Widgets
+// import Quickshell.Widgets
 import Quickshell.Hyprland
 import "../../theme"
 
 PanelWindow {
     id: leftPanel
     property bool opened: false
-    
-    // MarginWrapperManager { margin: 5 }
 
     HyprlandFocusGrab {
       id: grab
@@ -45,13 +43,13 @@ PanelWindow {
         anchors.fill: parent
         anchors.margins: 10
         spacing: 10
-        
+
         Rectangle {
 
             RowLayout {
                 anchors.fill: parent
                 spacing: 6
-            
+
                 Rectangle {
                     color: 'azure'
                     Layout.preferredWidth: 50
@@ -63,7 +61,7 @@ PanelWindow {
                         font.bold: true
                     }
                 }
-                
+
             }
         }
         Rectangle {

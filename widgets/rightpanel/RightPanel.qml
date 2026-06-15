@@ -3,13 +3,15 @@ import QtQuick
 import Quickshell
 import QtQuick.Controls.Basic
 import Quickshell.Hyprland
+import Quickshell.Wayland
 import "../../theme"
 
 PanelWindow {
     id: rightPanel
     property bool opened: false
+    property bool focus: opened ? true : false
     focusable: true
-
+    WlrLayershell.layer: WlrLayer.Top
     anchors {
         top: true
         bottom: true
@@ -20,10 +22,6 @@ PanelWindow {
 
     exclusionMode: ExclusionMode.Ignore
 
-    HyprlandFocusGrab {
-      id: grab
-      windows: [ rightPanel ]
-    }
     margins {
         right: opened ? 8 : -width
         top: 72
@@ -85,8 +83,8 @@ PanelWindow {
 
                 TextArea {
                     id: control
-                    text: activeFocus ? "I have active focus!" : "I do not have active focus"
-                    focus: true
+                    text: activeFocus ? "" : "I do not have active focus"
+                    focus: rightPanel.focus
                     KeyNavigation.priority: KeyNavigation.BeforeItem
                     KeyNavigation.tab: textField
                     background: Rectangle {
@@ -94,8 +92,12 @@ PanelWindow {
                         implicitHeight: 40
                         border.color: control.enabled ? "#d1be2b" : "transparent"
                     }
-                    
+
                 }
+            }
+            HyprlandFocusGrab {
+              id: grab
+              windows: [ rightPanel, control ]
             }
             // Text {
             //     anchors.centerIn: parent

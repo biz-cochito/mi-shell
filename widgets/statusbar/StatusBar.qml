@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import "WindowTitle.qml"
 import "../../theme"
 
 PanelWindow {
@@ -27,7 +28,7 @@ PanelWindow {
             anchors.left: parent.left
             anchors.leftMargin: 10
             anchors.verticalCenter: parent.verticalCenter
-            spacing: 15
+            spacing: 10
 
             // Left Toggle Button
             MouseArea {
@@ -38,23 +39,10 @@ PanelWindow {
 
                 Text {
                     anchors.centerIn: parent
-                    text: ""
+                    text: ""
                     color: leftPanel && leftPanel.opened ? Theme.accent : Theme.text
-                    font.pixelSize: 16
+                    font.pixelSize: 18
                 }
-            }
-
-            Text {
-                anchors.verticalCenter: parent.verticalCenter
-                text: "Omarchy"
-                color: Theme.text
-                font.bold: true
-            }
-
-            Rectangle {
-                width: 1
-                height: 20
-                color: Theme.border
             }
 
             WorkspaceSwitcher {}
@@ -71,6 +59,8 @@ PanelWindow {
                 color: rightPanel && rightPanel.opened ? Theme.accent : Theme.text
                 font.pixelSize: 18
             }
+
+            WindowTitle {}
         }
 
         Row {
