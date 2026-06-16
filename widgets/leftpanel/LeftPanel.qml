@@ -1,77 +1,95 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-// import Quickshell.Widgets
 import Quickshell.Hyprland
+import Quickshell.Wayland
 import "../../theme"
 
 PanelWindow {
-    id: leftPanel
+    id: root
+
     property bool opened: false
 
+    width: 420
+    color: "transparent"
+    exclusionMode: ExclusionMode.Ignore
+
     HyprlandFocusGrab {
-      id: grab
-      windows: [ window ]
+        id: grab
+
+        windows: [root]
     }
+
     anchors {
         top: true
         bottom: true
         left: true
     }
-    width: 300
-    color: "transparent"
-
-    exclusionMode: ExclusionMode.Ignore
 
     margins {
-        top: 72
-        left: opened ? 8: -width
-        bottom: 8
-    }
-
-    Behavior on margins.left {
-        NumberAnimation { duration: 300; easing.type: Easing.OutCubic }
+        top: 42
+        left: opened ? -1 : -width
+        bottom: 20
     }
 
     Rectangle {
         anchors.fill: parent
         color: Theme.background
-        radius: 0
-    }
+        radius: Theme.borderRadius * 4
+        topLeftRadius: 0
+        bottomLeftRadius: 0
+        border.width: 1
+        border.color: Theme.border
 
-    Column {
-        anchors.fill: parent
-        anchors.margins: 10
-        spacing: 10
+        RowLayout {
+            implicitHeight: 40
 
-        Rectangle {
-
-            RowLayout {
-                anchors.fill: parent
-                spacing: 6
-
-                Rectangle {
-                    color: 'azure'
-                    Layout.preferredWidth: 50
-                    Layout.preferredHeight: 42
-                    Text {
-                        text: "Left"
-                        color: Theme.accent
-                        font.pixelSize: 20
-                        font.bold: true
-                    }
-                }
+            Text {
+                color: Theme.accent
+                text: "Left"
+                font.pixelSize: 20
+                font.bold: true
 
             }
-        }
-        Rectangle {
-            width: parent.width - 40
-            height: 1
-            color: Theme.border
+
         }
 
-        Text { text: "Settings"; color: Theme.text }
-        Text { text: "Configuration"; color: Theme.text }
-        Text { text: "Hyprland Toggles"; color: Theme.text }
+        Column {
+            anchors.fill: parent
+            anchors.margins: 10
+            spacing: 10
+
+            Rectangle {
+                width: parent.width - 40
+                height: 1
+                color: Theme.text
+            }
+
+            Text {
+                text: "Settings"
+                color: Theme.text
+            }
+
+            Text {
+                text: "Configuration"
+                color: Theme.text
+            }
+
+            Text {
+                text: "Hyprland Toggles"
+                color: Theme.text
+            }
+
+        }
+
     }
+
+    Behavior on margins.left {
+        NumberAnimation {
+            duration: 300
+            easing.type: Easing.OutCubic
+        }
+
+    }
+
 }

@@ -1,31 +1,82 @@
-import QtCore
 import QtQuick
-import Quickshell
 import QtQuick.Controls.Basic
+import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Wayland
 import "../../theme"
+import "../common"
 
 PanelWindow {
-    id: rightPanel
+    id: root
+
     property bool opened: false
     property bool focus: opened ? true : false
+
+    width: 420
+    color: "transparent"
     focusable: true
+    exclusionMode: ExclusionMode.Ignore
+
     WlrLayershell.layer: WlrLayer.Top
+
     anchors {
         top: true
         bottom: true
         right: true
     }
-    width: 320
-    color: "transparent"
-
-    exclusionMode: ExclusionMode.Ignore
 
     margins {
-        right: opened ? 8 : -width
-        top: 72
-        bottom: 8
+        right: opened ? 16 : -width
+        top: 64
+        bottom: 28
+    }
+
+    Rectangle {
+        anchors.fill: parent
+        color: Theme.background
+        radius: Theme.borderRadius * 2
+        border.width: 1
+        border.color: Theme.textMuted
+    }
+
+    Column {
+        anchors.fill: parent
+        anchors.margins: 8
+        spacing: 15
+
+        Row {
+            width: parent.width
+            spacing: 15
+            leftPadding: 24
+
+            PanelTab {
+                tabText: "󰌹 Links"
+                tabSelected: true
+            }
+            PanelTab {
+                tabText: "󰉋 Files"
+            }
+            PanelTab {
+                tabText: "󰭻 Chat"
+            }
+        }
+
+        AlbumsDropdown {}
+
+
+        HyprlandFocusGrab {
+            id: grab
+
+            windows: [root, linkInput.control]
+        }
+
+        LinkInputBox {
+            id: linkInput
+            control.focus: root.focus
+        }
+        
+
+
     }
 
     Behavior on margins.right {
@@ -33,77 +84,7 @@ PanelWindow {
             duration: 300
             easing.type: Easing.OutCubic
         }
+
     }
 
-    Rectangle {
-        anchors.fill: parent
-        color: Theme.background
-        radius: 0
-    }
-
-    Column {
-        anchors.fill: parent
-        anchors.margins: 10
-        spacing: 10
-
-        Row {
-            width: parent.width
-            spacing: parent.width * 0.1
-
-            Text {
-                text: "󰭻  Chat"
-                color: Theme.accent
-                font.bold: true
-            }
-            Text {
-                text: "󰉋  Files"
-                color: Theme.text
-            }
-            Text {
-                text: "󰌹  Links"
-                color: Theme.text
-            }
-        }
-
-        Rectangle {
-            width: parent.width
-            height: 1
-            color: Theme.border
-        }
-
-        Rectangle {
-            width: parent.width
-            height: parent.height - 45
-            color: Theme.surface
-            radius: 0
-
-            ScrollView {
-                id: view
-                anchors.fill: parent
-
-                TextArea {
-                    id: control
-                    text: activeFocus ? "" : "I do not have active focus"
-                    focus: rightPanel.focus
-                    KeyNavigation.priority: KeyNavigation.BeforeItem
-                    KeyNavigation.tab: textField
-                    background: Rectangle {
-                        implicitWidth: 200
-                        implicitHeight: 40
-                        border.color: control.enabled ? "#d1be2b" : "transparent"
-                    }
-
-                }
-            }
-            HyprlandFocusGrab {
-              id: grab
-              windows: [ rightPanel, control ]
-            }
-            // Text {
-            //     anchors.centerIn: parent
-            //     text: "LLM Chat Placeholder"
-            //     color: Theme.textMuted
-            // }
-        }
-    }
 }

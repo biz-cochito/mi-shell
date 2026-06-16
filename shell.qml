@@ -5,22 +5,30 @@ import "./widgets/leftpanel"
 import "./widgets/rightpanel"
 
 ShellRoot {
-    id: shell
+    id: root
 
     StatusBar {
         id: statusBar
+
         leftPanel: leftPanel
         rightPanel: rightPanel
     }
-    LeftPanel { id: leftPanel }
-    RightPanel { id: rightPanel }
+
+    LeftPanel {
+        id: leftPanel
+    }
+
+    RightPanel {
+        id: rightPanel
+    }
 
     Connections {
-        target: shell
+        target: root
         function onBarHeightChanged() {
             statusBar.height = 32
             leftPanel.margins.top = 72
             rightPanel.margins.top = 72
         }
     }
+
 }

@@ -1,23 +1,29 @@
-import QtQuick
-import Quickshell
-import "WindowTitle.qml"
 import "../../theme"
+import QtQuick
+import QtQuick.Layouts
+import Quickshell
+// import Quickshell.Wayland
+import "WindowTitle.qml"
 
 PanelWindow {
-    property var leftPanel
-    property var rightPanel
+    id: root
+
+    property PanelWindow leftPanel
+    property PanelWindow rightPanel
+
+    implicitHeight: 32
+    color: Theme.surface
 
     anchors {
         top: true
         left: true
         right: true
     }
-    implicitHeight: 32
-    color: "transparent"
 
     SystemClock {
         id: systemClock
-        precision: SystemClock.Seconds
+
+        precision: SystemClock.Minutes
     }
 
     Rectangle {
@@ -25,10 +31,13 @@ PanelWindow {
         color: Theme.background
 
         Row {
-            anchors.left: parent.left
-            anchors.leftMargin: 10
-            anchors.verticalCenter: parent.verticalCenter
             spacing: 10
+
+            anchors {
+                left: parent.left
+                leftMargin: 10
+                verticalCenter: parent.verticalCenter
+            }
 
             // Left Toggle Button
             MouseArea {
@@ -41,38 +50,52 @@ PanelWindow {
                     anchors.centerIn: parent
                     text: ""
                     color: leftPanel && leftPanel.opened ? Theme.accent : Theme.text
-                    font.pixelSize: 18
+                    font.pixelSize: 32
                 }
+
             }
 
-            WorkspaceSwitcher {}
+            WorkspaceSwitcher {
+            }
+
         }
 
         Row {
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
+                spacing: 10
+                Layout.maximumWidth: 300
+
+                anchors {
+                    horizontalCenter: parent.horizontalCenter
+                    verticalCenter: parent.verticalCenter
+                }
+
+                Text {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: ""
+                    color: Theme.text
+                    font.pixelSize: 20
+                }
+
+                WindowTitle {
+                }
+
+
+        }
+
+        Row {
             spacing: 10
 
-            Text {
-                anchors.verticalCenter: parent.verticalCenter
-                text: ""
-                color: rightPanel && rightPanel.opened ? Theme.accent : Theme.text
-                font.pixelSize: 18
+            anchors {
+                right: parent.right
+                rightMargin: 5
+                verticalCenter: parent.center
             }
-
-            WindowTitle {}
-        }
-
-        Row {
-            anchors.right: parent.right
-            anchors.rightMargin: 10
-            anchors.verticalCenter: parent.verticalCenter
-            spacing: 15
 
             Text {
                 anchors.verticalCenter: parent.verticalCenter
                 text: Qt.formatDateTime(systemClock.date, "ddd dd MMM  hh:mm")
                 color: Theme.text
+                font.family: Theme.fontFamily
             }
 
             // Right Toggle Button
@@ -84,11 +107,15 @@ PanelWindow {
 
                 Text {
                     anchors.centerIn: parent
-                    text: "󰂺"
-                    color: rightPanel && rightPanel.opened ? Theme.accent : Theme.text
-                    font.pixelSize: 18
+                    text: "󱥤"
+                    color: rightPanel && rightPanel.opened ? Theme.active : Theme.text
+                    font.pixelSize: 28
                 }
+
             }
+
         }
+
     }
+
 }
