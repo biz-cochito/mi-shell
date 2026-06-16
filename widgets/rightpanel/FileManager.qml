@@ -16,6 +16,40 @@ Item {
         id: fileModel
     }
 
+    function loadDirectory() {
+        fileModel.clear();
+        if (root.currentPath === "") root.currentPath = "/";
+        lsProcess.command = ["sh", "-c", "ls -1p --group-directories-first \"" + root.currentPath + "\""];
+        lsProcess.running = true;
+    }
+
+    onCurrentPathChanged: {
+        loadDirectory();
+    }
+
+    Component.onCompleted: {
+        loadDirectory();
+    }
+
+    Process {
+        id: lsProcess
+        
+        stdout: SplitParser {
+            splitMarker: "\n"
+            onRead: line => {
+                if (line === "") return;
+                
+                let isDirectory = line.endsWith("/");
+                let fileName = isDirectory ? line.substring(0, line.length - 1) : line;
+                
+                fileModel.append({
+                    name: fileName,
+                    isDir: isDirectory
+                });
+            }
+        }
+    }
+
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: 10
