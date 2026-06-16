@@ -19,7 +19,7 @@ Item {
     function loadDirectory() {
         fileModel.clear();
         if (root.currentPath === "") root.currentPath = "/";
-        lsProcess.command = ["sh", "-c", "ls -1p --group-directories-first \"" + root.currentPath + "\""];
+        lsProcess.command = ["ls", "-1p", "--group-directories-first", root.currentPath];
         lsProcess.running = true;
     }
 
@@ -48,6 +48,10 @@ Item {
                 });
             }
         }
+    }
+
+    Process {
+        id: openProcess
     }
 
     ColumnLayout {
@@ -103,8 +107,33 @@ Item {
                 required property string name
                 required property bool isDir
 
+                MouseArea {
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    
+                    Rectangle {
+                        anchors.fill: parent
+                        color: parent.containsMouse ? Theme.accentDim : "transparent"
+                        radius: 4
+                    }
+                    
+                    onClicked: {
+                        let sep = root.currentPath === "/" ? "" : "/";
+                        let fullPath = root.currentPath + sep + name;
+                        if (isDir) {
+                            root.currentPath = fullPath;
+                        } else {
+                            openProcess.command = ["xdg-open", fullPath];
+                            openProcess.running = true;
+                        }
+                    }
+                }
+
                 RowLayout {
                     anchors.fill: parent
+                    anchors.leftMargin: 5
+                    anchors.rightMargin: 5
                     spacing: 10
 
                     ThemeText {
