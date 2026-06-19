@@ -1,7 +1,8 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-import "../../theme"
+import "../../common"
+import "../../../theme"
 
 ListView {
             id: fileList

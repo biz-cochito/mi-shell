@@ -14,8 +14,8 @@ PanelWindow {
     property bool focus: opened ? true : false
     property int selectedTabIndex: 0 // 0: Links, 1: Files, 2: Chat
 
-    width: 420
-    height: 800
+    width: 400
+    height: 935
     color: Theme.background
     focusable: true
     exclusionMode: ExclusionMode.Ignore
@@ -29,9 +29,9 @@ PanelWindow {
     }
 
     margins {
-        top: opened ? 86 : -height
-        right: 20
-        bottom: 28
+        right: opened ? 0 : -width
+        top: 26
+        bottom: 0
     }
 
     Rectangle {

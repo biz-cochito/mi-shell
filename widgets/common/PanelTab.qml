@@ -1,11 +1,13 @@
+import "../../theme"
+import Qt5Compat.GraphicalEffects
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Shapes
-import Qt5Compat.GraphicalEffects
-import "../../theme"
 
 Item {
     // border.color: root.tabSelected ? Theme.accent : "transparent"
+    // color: root.tabSelected ? Theme.accent : "transparent"
+    // radius: 30
 
     id: root
 
@@ -15,49 +17,37 @@ Item {
 
     signal clicked()
 
-    implicitWidth: buttonText.implicitWidth + 24
-    implicitHeight: buttonText.implicitHeight + 20
-    // color: root.tabSelected ? Theme.accent : "transparent"
-    // radius: 30
-    Image {
-        id: bgSplat
-        source: "../../assets/Asset (13).svg"
-        sourceSize: Qt.size(parent.width, parent.height)
-        anchors.centerIn: parent
-        width: parent.width * 1.1
-        height: parent.height * 1.1
-        // Allow the splat to stretch to cover the button shape
-        fillMode: Image.Stretch
-        visible: false
+    implicitWidth: buttonText.implicitWidth * 1.5
+    implicitHeight: buttonText.implicitHeight * 2
 
-    }
-
-    ColorOverlay {
-        anchors.fill: bgSplat
-        source: bgSplat
-        color: Theme.accent
-        visible: root.tabSelected
-    }
-
-    ThemeText {
-        id: buttonText
-        text: root.tabText
-        // 2. Center the text in the rectangle
-        anchors.centerIn: parent
-        // Let's also dynamically change the text color based on selection!
-        color: root.tabSelected ? Theme.background : Theme.error
-        font.bold: root.tabSelected
-    }
-    MouseArea {
-        id: mouseArea
-
-        // 3 & 4. Fill the whole rectangle, remove invalid color
+    Rectangle {
+        id: tabItem
         anchors.fill: parent
-        hoverEnabled: true
-        cursorShape: Qt.PointingHandCursor
+        color: root.tabSelected ? Theme.accent : "transparent"
+        radius: Theme.borderRadius
 
-        // 5. Reference the correct ID to emit the signal
-        onClicked: root.clicked()
+        ThemeText {
+            id: buttonText
+
+            text: root.tabText
+            // 2. Center the text in the rectangle
+            anchors.centerIn: parent
+            // Let's also dynamically change the text color based on selection!
+            color: root.tabSelected ? Theme.textActive : Theme.text
+            font.bold: root.tabSelected
+        }
+
+        MouseArea {
+            id: mouseArea
+
+            // 3 & 4. Fill the whole rectangle, remove invalid color
+            anchors.fill: parent
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
+            // 5. Reference the correct ID to emit the signal
+            onClicked: root.clicked()
+        }
+
     }
 
 }

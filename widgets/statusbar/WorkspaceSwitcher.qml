@@ -21,16 +21,16 @@ Row {
 
             required property var modelData
 
-            width: delegateRoot.modelData.focused ? 48 : 20
-            height: 20
+            width: 20
+            height: 16
             // radius: delegateRoot.modelData.focused ? (width / 1.5) : 2
-            // radius: 12
+            radius: width/2
             color: delegateRoot.modelData.focused ? Theme.accent : (delegateRoot.modelData.active ? Theme.background : "transparent")
             // border.color: Theme.surface
             border.width: 0
 
             function scratchpadTitle() {
-                if (delegateRoot.modelData.id === -96)
+                if (delegateRoot.modelData.id === -98)
                     return "";
                 else if (delegateRoot.modelData.id === -97)
                     return "";
@@ -43,18 +43,18 @@ Row {
                     name: "active"
                     when: delegateRoot.modelData.active
                     PropertyChanges {
-                        delegateRoot.radius: 12
+                        delegateRoot.color: Theme.text
                         delegateRoot.scale: 1
-                        delegateRoot.width: 48
+                        delegateRoot.width: 36
                     }
                 },
                 State {
                     name: "focused"
                     when: delegateRoot.modelData.focused
                     PropertyChanges {
-                        delegateRoot.radius: parent.width
+                        
                         delegateRoot.scale: 1
-                        delegateRoot.width: parent.width
+                        delegateRoot.width: 36
                     }
                 }
             ]
@@ -79,7 +79,7 @@ Row {
                 NumberAnimation {
                     duration: 450
                     easing.type: Easing.OutBack
-                    easing.overshoot: 1.85
+                    easing.overshoot: 3.85
                 }
             }
 
@@ -92,7 +92,7 @@ Row {
             ColorOverlay {
                 anchors.fill: parent
                 source: parent
-                // color: Theme.accent
+                color: Theme.accent
                 opacity: 1
                 visible: delegateRoot.modelData.focused
             }
@@ -101,7 +101,7 @@ Row {
                 id: workspaceLabel
                 anchors.centerIn: parent
                 text: delegateRoot.scratchpadTitle()
-                color: Theme.text
+                color: delegateRoot.modelData.active ? Theme.text : Theme.textMuted
                 font.bold: delegateRoot.modelData.focused
                 font.pixelSize: 14
             }

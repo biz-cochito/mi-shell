@@ -25,7 +25,6 @@ PanelWindow {
 
     SystemClock {
         id: systemClock
-
         precision: SystemClock.Minutes
     }
 
@@ -60,16 +59,14 @@ PanelWindow {
 
                 Text {
                     text: ""
-                    font.pixelSize: 18
+                    font.pixelSize: 16
                     anchors.centerIn: parent
-                    color: leftPanel && leftPanel.opened ? Theme.active : Theme.text
+                    color: root.leftPanel && root.leftPanel.opened ? Theme.active : Theme.text
                 }
-
             }
 
             WorkspaceSwitcher {
             }
-
         }
 
         Row {
@@ -115,19 +112,28 @@ PanelWindow {
                 width: root.height
                 height: root.height
                 cursorShape: Qt.PointingHandCursor
-                onClicked: rightPanel.opened = !rightPanel.opened
+                onClicked: rightPanel.opened = !rightPanel.opened 
 
                 Text {
-                    text: ""
-                    font.pixelSize: 18
+                    id: rightPanelButton
+                    text: "󰜲"
+                    font.pixelSize: 20
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.centerIn: parent
                     color: rightPanel && rightPanel.opened ? Theme.active : Theme.text
+                    
+                    states: State {
+                        name: "rotated"
+                        when: rightPanel.opened
+                        PropertyChanges { target: rightPanelButton; rotation: -90 }
+                    }
+
+                    transitions: Transition {
+                        RotationAnimation { duration: 250; direction: RotationAnimation.Shortest }
+                    }
+                    
                 }
             }
-
         }
-
     }
-
 }

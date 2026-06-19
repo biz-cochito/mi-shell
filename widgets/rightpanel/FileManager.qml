@@ -10,6 +10,7 @@ Item {
     id: root
 
     property string currentPath: Quickshell.env("HOME") || "/"
+    property bool showHiddenFiles: false
 
     ListModel {
         id: fileModel
@@ -32,6 +33,10 @@ Item {
         loadDirectory();
     }
 
+    onShowHiddenFilesChanged: {
+        loadDirectory();
+    }
+
     Component.onCompleted: {
         loadDirectory();
     }
@@ -46,6 +51,8 @@ Item {
                 
                 let isDirectory = line.endsWith("/");
                 let fileName = isDirectory ? line.substring(0, line.length - 1) : line;
+                
+                if (!root.showHiddenFiles && fileName.startsWith(".")) return;
                 
                 fileModel.append({
                     name: fileName,
@@ -95,9 +102,20 @@ Item {
                 elide: Text.ElideLeft
                 Layout.fillWidth: true
             }
+
+            ThemeText {
+                text: root.showHiddenFiles ? "󰈈" : "󰈉"
+                font.pixelSize: 18
+                color: Theme.textMuted
+
+                MouseArea {
+                    anchors.fill: parent
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: root.showHiddenFiles = !root.showHiddenFiles
+                }
+            }
         }
 
-        // List
         ListView {
             id: fileList
             Layout.fillWidth: true
