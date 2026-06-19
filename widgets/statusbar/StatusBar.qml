@@ -44,8 +44,8 @@ PanelWindow {
 
             // Left Toggle Button
             MouseArea {
-                width: 30
-                height: 30
+                width: root.height
+                height: root.height
                 cursorShape: Qt.PointingHandCursor
                 onClicked: leftPanel.opened = !leftPanel.opened
 
@@ -112,7 +112,7 @@ PanelWindow {
 
             // Right Toggle Button
             MouseArea {
-                width: 30
+                width: root.height
                 height: root.height
                 cursorShape: Qt.PointingHandCursor
                 onClicked: rightPanel.opened = !rightPanel.opened
