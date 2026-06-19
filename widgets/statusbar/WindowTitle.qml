@@ -1,5 +1,5 @@
 import QtQuick
-import Quickshell
+// import Quickshell
 import Quickshell.Hyprland
 import "../../theme"
 

@@ -7,10 +7,10 @@ import "../../theme"
 
 PanelWindow {
     id: root
-
     property bool opened: false
 
-    width: 420
+    height: 800
+    width:380
     color: "transparent"
     exclusionMode: ExclusionMode.Ignore
 
@@ -22,22 +22,20 @@ PanelWindow {
 
     anchors {
         top: true
-        bottom: true
+        // bottom: true
         left: true
     }
 
     margins {
-        top: 42
-        left: opened ? -1 : -width
+        left: 20
+        top: opened ? 86 : -height
         bottom: 20
     }
 
     Rectangle {
         anchors.fill: parent
         color: Theme.background
-        radius: Theme.borderRadius * 4
-        topLeftRadius: 0
-        bottomLeftRadius: 0
+        radius: Theme.borderRadius * 2
         border.width: 1
         border.color: Theme.border
 
@@ -84,10 +82,10 @@ PanelWindow {
 
     }
 
-    Behavior on margins.left {
+    Behavior on margins.top {
         NumberAnimation {
             duration: 300
-            easing.type: Easing.OutCubic
+            easing.type: Easing.OutInBounce
         }
 
     }

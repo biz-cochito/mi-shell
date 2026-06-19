@@ -9,8 +9,7 @@ import "../common"
 Item {
     id: root
 
-    // Default to home directory
-    property string currentPath: "/home/bis"
+    property string currentPath: Quickshell.env("HOME") || "/"
 
     ListModel {
         id: fileModel
@@ -19,7 +18,13 @@ Item {
     function loadDirectory() {
         fileModel.clear();
         if (root.currentPath === "") root.currentPath = "/";
-        lsProcess.command = ["ls", "-1p", "--group-directories-first", root.currentPath];
+        lsProcess.command = [
+            "sh",
+            "-c",
+            "find \"$1\" -mindepth 1 -maxdepth 1 \\( -type d -o -xtype d \\) -printf '%f/\\0' | sort -z; find \"$1\" -mindepth 1 -maxdepth 1 ! \\( -type d -o -xtype d \\) -printf '%f\\0' | sort -z",
+            "_",
+            root.currentPath
+        ];
         lsProcess.running = true;
     }
 
@@ -35,7 +40,7 @@ Item {
         id: lsProcess
         
         stdout: SplitParser {
-            splitMarker: "\n"
+            splitMarker: "\u0000"
             onRead: line => {
                 if (line === "") return;
                 

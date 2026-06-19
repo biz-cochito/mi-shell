@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls.Basic
 import Quickshell
@@ -14,7 +15,8 @@ PanelWindow {
     property int selectedTabIndex: 0 // 0: Links, 1: Files, 2: Chat
 
     width: 420
-    color: "transparent"
+    height: 800
+    color: Theme.background
     focusable: true
     exclusionMode: ExclusionMode.Ignore
 
@@ -22,13 +24,13 @@ PanelWindow {
 
     anchors {
         top: true
-        bottom: true
+        // bottom: true
         right: true
     }
 
     margins {
-        right: opened ? 16 : -width
-        top: 64
+        top: opened ? 86 : -height
+        right: 20
         bottom: 28
     }
 
@@ -37,7 +39,7 @@ PanelWindow {
         color: Theme.background
         radius: Theme.borderRadius * 2
         border.width: 1
-        border.color: Theme.textMuted
+        border.color: Theme.background
     }
 
     Column {
@@ -71,15 +73,14 @@ PanelWindow {
         Loader {
             width: parent.width
             height: parent.height - rowTabs.height - parent.spacing
-            sourceComponent: root.selectedTabIndex === 0 ? linksComponent : 
-                             root.selectedTabIndex === 1 ? filesComponent : null
+            sourceComponent: root.selectedTabIndex === 1 ? filesComponent : linksComponent
         }
-        
+
         Component {
             id: linksComponent
             Item {
                 anchors.fill: parent
-                
+
                 HyprlandFocusGrab {
                     id: grab
                     windows: [root, linkInput.control]
@@ -87,12 +88,11 @@ PanelWindow {
 
                 LinkInputBox {
                     id: linkInput
-                    control.focus: root.focus
                     anchors.top: parent.top
                 }
             }
         }
-        
+
         Component {
             id: filesComponent
             FileManager {
@@ -101,12 +101,10 @@ PanelWindow {
         }
     }
 
-    Behavior on margins.right {
+    Behavior on margins.top {
         NumberAnimation {
             duration: 300
             easing.type: Easing.OutCubic
         }
-
     }
-
 }

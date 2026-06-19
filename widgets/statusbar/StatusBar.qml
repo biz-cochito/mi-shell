@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import "../../theme"
 import QtQuick
 import QtQuick.Layouts
@@ -11,8 +12,10 @@ PanelWindow {
     property PanelWindow leftPanel
     property PanelWindow rightPanel
 
-    implicitHeight: 32
-    color: Theme.surface
+    implicitHeight: 26
+    color: Theme.background
+    focusable: true
+
 
     anchors {
         top: true
@@ -46,11 +49,20 @@ PanelWindow {
                 cursorShape: Qt.PointingHandCursor
                 onClicked: leftPanel.opened = !leftPanel.opened
 
+                Image {
+                    id: toggleIcon
+                    source: "../../assets/3.png"
+                    sourceSize: Qt.size(16, 16)
+                    fillMode: Image.Stretch
+
+                }
+
+
                 Text {
+                    text: ""
+                    font.pixelSize: 18
                     anchors.centerIn: parent
-                    text: ""
-                    color: leftPanel && leftPanel.opened ? Theme.accent : Theme.text
-                    font.pixelSize: 32
+                    color: leftPanel && leftPanel.opened ? Theme.active : Theme.text
                 }
 
             }
@@ -73,7 +85,7 @@ PanelWindow {
                     anchors.verticalCenter: parent.verticalCenter
                     text: ""
                     color: Theme.text
-                    font.pixelSize: 20
+                    font.pixelSize: 16
                 }
 
                 WindowTitle {
@@ -101,17 +113,17 @@ PanelWindow {
             // Right Toggle Button
             MouseArea {
                 width: 30
-                height: 30
+                height: root.height
                 cursorShape: Qt.PointingHandCursor
                 onClicked: rightPanel.opened = !rightPanel.opened
 
                 Text {
+                    text: ""
+                    font.pixelSize: 18
+                    anchors.verticalCenter: parent.verticalCenter
                     anchors.centerIn: parent
-                    text: "󱥤"
                     color: rightPanel && rightPanel.opened ? Theme.active : Theme.text
-                    font.pixelSize: 28
                 }
-
             }
 
         }

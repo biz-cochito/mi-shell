@@ -16,18 +16,18 @@ Item {
     signal clicked()
 
     implicitWidth: buttonText.implicitWidth + 24
-    implicitHeight: buttonText.implicitHeight + 12
+    implicitHeight: buttonText.implicitHeight + 20
     // color: root.tabSelected ? Theme.accent : "transparent"
     // radius: 30
     Image {
         id: bgSplat
-        source: "../../assets/12.png"
+        source: "../../assets/Asset (13).svg"
         sourceSize: Qt.size(parent.width, parent.height)
         anchors.centerIn: parent
-        width: parent.width * 1
-        height: parent.height * 1
+        width: parent.width * 1.1
+        height: parent.height * 1.1
         // Allow the splat to stretch to cover the button shape
-        fillMode: Image.PreserveAspectCrop
+        fillMode: Image.Stretch
         visible: false
 
     }
@@ -35,7 +35,7 @@ Item {
     ColorOverlay {
         anchors.fill: bgSplat
         source: bgSplat
-        color: Theme.accentDim
+        color: Theme.accent
         visible: root.tabSelected
     }
 
@@ -45,7 +45,7 @@ Item {
         // 2. Center the text in the rectangle
         anchors.centerIn: parent
         // Let's also dynamically change the text color based on selection!
-        color: root.tabSelected ? Theme.text : Theme.textMuted
+        color: root.tabSelected ? Theme.background : Theme.error
         font.bold: root.tabSelected
     }
     MouseArea {
