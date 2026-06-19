@@ -1,16 +1,17 @@
+import "../../theme"
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Wayland
-import "../../theme"
 
 PanelWindow {
     id: root
+
     property bool opened: false
 
-    height: 800
-    width:380
+    height: 935
+    width: 360
     color: "transparent"
     exclusionMode: ExclusionMode.Ignore
     WlrLayershell.layer: WlrLayer.Top
@@ -28,55 +29,61 @@ PanelWindow {
     }
 
     margins {
-        left: 20
-        top: opened ? 86 : -height
-        bottom: 20
+        left: opened ? 0 : -width
+        top: 26
+        bottom: 0
     }
 
     Rectangle {
         anchors.fill: parent
         color: Theme.background
-        radius: Theme.borderRadius * 2
         border.width: 1
-        border.color: Theme.border
+        border.color: Theme.background
 
-        RowLayout {
-            implicitHeight: 40
+        Rectangle {
+            id: panelHeader
+            width: parent.width
+            height: 40
+            color: "transparent"
 
             Text {
                 color: Theme.accent
-                text: "Left"
+                text: "mishell"
                 font.pixelSize: 20
                 font.bold: true
-
+                font.family: Theme.fontFamily
+                font.italic: true
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.margins: 10
             }
 
         }
 
-        Column {
+        Rectangle {
             anchors.fill: parent
-            anchors.margins: 10
-            spacing: 10
+            anchors.topMargin: panelHeader.height
+            color: "transparent"
+            Column {
+                anchors.fill: parent
+                anchors.margins: 8
+                spacing: 10
 
-            Rectangle {
-                width: parent.width - 40
-                height: 1
-                color: Theme.text
-            }
+                Text {
+                    text: "Settings"
+                    color: Theme.text
+                }
 
-            Text {
-                text: "Settings"
-                color: Theme.text
-            }
+                Text {
+                    text: "Configuration"
+                    color: Theme.text
+                }
 
-            Text {
-                text: "Configuration"
-                color: Theme.text
-            }
+                Text {
+                    text: "Hyprland Toggles"
+                    color: Theme.text
+                }
 
-            Text {
-                text: "Hyprland Toggles"
-                color: Theme.text
             }
 
         }

@@ -49,20 +49,22 @@ PanelWindow {
                 cursorShape: Qt.PointingHandCursor
                 onClicked: leftPanel.opened = !leftPanel.opened
 
-                Image {
-                    id: toggleIcon
-                    source: "../../assets/3.png"
-                    sourceSize: Qt.size(16, 16)
-                    fillMode: Image.Stretch
-
-                }
-
-
                 Text {
+                    id: leftPanelButton
                     text: ""
                     font.pixelSize: 16
                     anchors.centerIn: parent
                     color: root.leftPanel && root.leftPanel.opened ? Theme.active : Theme.text
+
+                    states: State {
+                        name: "rotated"
+                        when: leftPanel.opened
+                        PropertyChanges { target: leftPanelButton; rotation: 90 }
+                    }
+
+                    transitions: Transition {
+                        RotationAnimation { duration: 150; direction: RotationAnimation.Shortest }
+                    }
                 }
             }
 

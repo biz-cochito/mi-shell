@@ -3,9 +3,9 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Hyprland
-import Quickshell.Widgets
+// import Quickshell.Widgets
 
-Row {
+RowLayout {
     id: root
 
     readonly property var activeWindow: Hyprland.toplevels.values.find((t) => {

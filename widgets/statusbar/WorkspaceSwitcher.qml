@@ -22,10 +22,11 @@ Row {
 
             required property var modelData
             height: Theme.fontSize + 4
-            width: modelData.focused ? 36 : 20
+            width: modelData.focused ? 42 : 20
             
             radius: Theme.borderRadius
-            color: delegateRoot.modelData.focused ? Theme.accent : (delegateRoot.modelData.active ? Theme.background : "transparent");
+            // color: delegateRoot.modelData.focused ? Theme.accent : (delegateRoot.modelData.active ? Theme.background : "transparent");
+            color: delegateRoot.modelData.urgent ? Theme.error : delegateRoot.modelData.focused ? Theme.accent : "transparent"
 
             Behavior on width {
                 NumberAnimation {
@@ -39,9 +40,9 @@ Row {
                 id: workspaceLabel
                 anchors.centerIn: parent
                 text: Utils.getWorkspaceIcon(delegateRoot.modelData.id)
-                color: delegateRoot.modelData.focused ? Theme.text : Theme.textMuted
+                color: delegateRoot.modelData.focused ? Theme.background : Theme.text
                 font.bold: delegateRoot.modelData.focused
-                font.pixelSize: 14
+                font.pixelSize: 15
             }
 
             MouseArea {
