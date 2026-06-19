@@ -13,6 +13,7 @@ PanelWindow {
     width:380
     color: "transparent"
     exclusionMode: ExclusionMode.Ignore
+    WlrLayershell.layer: WlrLayer.Top
 
     HyprlandFocusGrab {
         id: grab

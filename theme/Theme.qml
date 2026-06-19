@@ -19,5 +19,6 @@ QtObject {
     property color warning: "#f3be7c"
     property color success: "#99b782"
     property int borderRadius: 4
-    property font fontFamily: "Maple Mono"
+    property string fontFamily: "Maple Mono"
+    property int fontSize: 16
 }

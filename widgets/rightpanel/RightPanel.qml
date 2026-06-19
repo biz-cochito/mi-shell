@@ -1,6 +1,7 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls.Basic
+import QtQuick.Layouts
 import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Wayland
@@ -20,7 +21,7 @@ PanelWindow {
     focusable: true
     exclusionMode: ExclusionMode.Ignore
 
-    WlrLayershell.layer: WlrLayer.Top
+    
 
     anchors {
         top: true

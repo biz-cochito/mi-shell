@@ -10,14 +10,11 @@ function exportLinks(nameField, exportProcess, textArea) {
       pad(date.getHours()) + "-" +
       pad(date.getMinutes()) + "-" +
       pad(date.getSeconds());
-    fileName = "links_" + timestamp + ".txt";
-  }
+    fileName = "links_" + timestamp;
+  } 
 
-  let exportPath = Quickshell.env("HOME") + "/AppData/Configs/Default/Links/" + fileName;
+  let exportPath = Quickshell.env("HOME") + "/AppData/Configs/Default/Links/" + fileName + ".txt";
 
   exportProcess.command = ["sh", "-c", "printf '%s' \"$1\" > \"$2\"", "_", textArea.text, exportPath];
   exportProcess.running = true;
-
-  textArea.text = "";
-  nameField.text = "";
 }

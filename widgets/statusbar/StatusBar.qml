@@ -3,7 +3,7 @@ import "../../theme"
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-// import Quickshell.Wayland
+import Quickshell.Wayland
 import "WindowTitle.qml"
 
 PanelWindow {
@@ -11,6 +11,7 @@ PanelWindow {
 
     property PanelWindow leftPanel
     property PanelWindow rightPanel
+    WlrLayershell.layer: WlrLayer.Top
 
     implicitHeight: 26
     color: Theme.background
@@ -69,27 +70,7 @@ PanelWindow {
             }
         }
 
-        Row {
-                spacing: 10
-                Layout.maximumWidth: 300
-
-                anchors {
-                    horizontalCenter: parent.horizontalCenter
-                    verticalCenter: parent.verticalCenter
-                }
-
-                Text {
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: ""
-                    color: Theme.text
-                    font.pixelSize: 16
-                }
-
-                WindowTitle {
-                }
-
-
-        }
+        WindowTitle {}
 
         Row {
             spacing: 10
@@ -116,7 +97,7 @@ PanelWindow {
 
                 Text {
                     id: rightPanelButton
-                    text: "󰜲"
+                    text: "󰳝"
                     font.pixelSize: 20
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.centerIn: parent
@@ -129,7 +110,7 @@ PanelWindow {
                     }
 
                     transitions: Transition {
-                        RotationAnimation { duration: 250; direction: RotationAnimation.Shortest }
+                        RotationAnimation { duration: 150; direction: RotationAnimation.Shortest }
                     }
                     
                 }
