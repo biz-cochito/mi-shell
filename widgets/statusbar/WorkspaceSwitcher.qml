@@ -1,11 +1,8 @@
-pragma ComponentBehavior: Bound
+//@pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell.Hyprland
-// import QtQuick.Shapes
-// import QtQuick.Controls
-import Qt5Compat.GraphicalEffects
 import "../../theme"
-import "utils.js" as Utils
+import "statusBar.js" as JS
 
 Row {
     id: root
@@ -39,7 +36,7 @@ Row {
             Text {
                 id: workspaceLabel
                 anchors.centerIn: parent
-                text: Utils.getWorkspaceIcon(delegateRoot.modelData.id)
+                text: JS.getWorkspaceIcon(delegateRoot.modelData.id)
                 color: delegateRoot.modelData.focused ? Theme.background : Theme.text
                 font.bold: delegateRoot.modelData.focused
                 font.pixelSize: 15

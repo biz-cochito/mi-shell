@@ -1,7 +1,7 @@
-pragma ComponentBehavior: Bound
+//@pragma ComponentBehavior: Bound
 import QtQuick
-import QtQuick.Controls.Basic
-import QtQuick.Layouts
+// import QtQuick.Controls.Basic
+// import QtQuick.Layouts
 import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Wayland
@@ -20,8 +20,6 @@ PanelWindow {
     color: Theme.background
     focusable: true
     exclusionMode: ExclusionMode.Ignore
-
-    
 
     anchors {
         top: true
@@ -54,41 +52,56 @@ PanelWindow {
             spacing: 15
             leftPadding: 24
 
-            PanelTab {
-                tabText: "󰌹 Links"
+            TabItem {
+                tabText: " Notes"
                 tabSelected: root.selectedTabIndex === 0
                 onClicked: root.selectedTabIndex = 0
             }
-            PanelTab {
+            TabItem {
                 tabText: "󰉋 Files"
                 tabSelected: root.selectedTabIndex === 1
                 onClicked: root.selectedTabIndex = 1
             }
-            PanelTab {
-                tabText: "󰭻 Chat"
-                tabSelected: root.selectedTabIndex === 2
-                onClicked: root.selectedTabIndex = 2
-            }
+            // TabItem {
+            //     tabText: "󰭻 Chat"
+            //     tabSelected: root.selectedTabIndex === 2
+            //     onClicked: root.selectedTabIndex = 2
+            // }
         }
 
         Loader {
             width: parent.width
             height: parent.height - rowTabs.height - parent.spacing
-            sourceComponent: root.selectedTabIndex === 1 ? filesComponent : linksComponent
+            sourceComponent: root.selectedTabIndex === 1 ? filesComponent : notesComponent
         }
 
         Component {
-            id: linksComponent
+            id: notesComponent
             Item {
                 anchors.fill: parent
 
-                HyprlandFocusGrab {
-                    id: grab
-                    windows: [root, linkInput.control]
+                Connections {
+                    target: root
+                    function onOpenedChanged() {
+                        if (root.opened) {
+                            notesInput.control.forceActiveFocus()
+                        }
+                    }
                 }
 
-                LinkInputBox {
-                    id: linkInput
+                Component.onCompleted: {
+                    if (root.opened) {
+                        notesInput.control.forceActiveFocus()
+                    }
+                }
+
+                HyprlandFocusGrab {
+                    id: grab
+                    windows: [root, notesInput.control]
+                }
+
+                Notepad {
+                    id: notesInput
                     anchors.top: parent.top
                 }
             }

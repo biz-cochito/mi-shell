@@ -6,7 +6,7 @@ import Quickshell.Hyprland
 import Quickshell.Wayland
 import Quickshell.Io
 import "../../theme"
-import "utils.js" as Utils
+import "rightPanel.js" as JS
 
 Rectangle {
     id: root
@@ -16,8 +16,9 @@ Rectangle {
     width: 400
     height: 300
 
-    property string filePath: Quickshell.env("HOME") + "/AppData/Configs/Default/Links/saved_links.txt"
+    property string filePath: Quickshell.env("HOME") + "/AppData/Configs/Default/Links/note.txt"
     property bool isLoading: true
+    property alias control: textArea
 
     HyprlandFocusGrab {
         id: grab
@@ -115,7 +116,7 @@ Rectangle {
 
                 Text {
                     anchors.centerIn: parent
-                    text: "Export"
+                    text: "Save"
                     color: Theme.background
                     font.pixelSize: 14
                     font.bold: true
@@ -124,7 +125,7 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
-                    onClicked: Utils.exportLinks(nameField, exportProcess, textArea)
+                    onClicked: JS.exportLinks(nameField, exportProcess, textArea)
                 }
             }
         }
