@@ -11,6 +11,7 @@ Item {
 
     property string currentPath: Quickshell.env("HOME") || "/"
     property bool showHiddenFiles: false
+    property bool isGridView: false
 
     ListModel {
         id: fileModel
@@ -114,63 +115,24 @@ Item {
                     onClicked: root.showHiddenFiles = !root.showHiddenFiles
                 }
             }
-        }
 
-        ListView {
-            id: fileList
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            model: fileModel
-            clip: true
-
-            delegate: Item {
-                width: ListView.view.width
-                height: 30
-
-                required property string name
-                required property bool isDir
+            ThemeText {
+                text: root.isGridView ? "󰕯" : "󰕰"
+                font.pixelSize: 18
+                color: Theme.textMuted
 
                 MouseArea {
                     anchors.fill: parent
-                    hoverEnabled: true
                     cursorShape: Qt.PointingHandCursor
-                    
-                    Rectangle {
-                        anchors.fill: parent
-                        color: parent.containsMouse ? Theme.accentDim : "transparent"
-                        radius: 4
-                    }
-                    
-                    onClicked: {
-                        let sep = root.currentPath === "/" ? "" : "/";
-                        let fullPath = root.currentPath + sep + name;
-                        if (isDir) {
-                            root.currentPath = fullPath;
-                        } else {
-                            openProcess.command = ["xdg-open", fullPath];
-                            openProcess.running = true;
-                        }
-                    }
-                }
-
-                RowLayout {
-                    anchors.fill: parent
-                    anchors.leftMargin: 5
-                    anchors.rightMargin: 5
-                    spacing: 10
-
-                    ThemeText {
-                        text: isDir ? "󰉋" : "󰈔"
-                        color: isDir ? Theme.accent : Theme.textMuted
-                    }
-
-                    ThemeText {
-                        text: name
-                        elide: Text.ElideRight
-                        Layout.fillWidth: true
-                    }
+                    onClicked: root.isGridView = !root.isGridView
                 }
             }
+        }
+
+        Loader {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            source: root.isGridView ? "filemanager/GridView.qml" : "filemanager/ListView.qml"
         }
     }
 }

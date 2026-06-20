@@ -23,7 +23,7 @@ Item {
     Rectangle {
         id: tabItem
         anchors.fill: parent
-        color: root.tabSelected ? Theme.accent : "transparent"
+        color: root.tabSelected ? Theme.accent : mouseArea.containsMouse ? Theme.surface : "transparent"
         radius: Theme.borderRadius
 
         ThemeText {
