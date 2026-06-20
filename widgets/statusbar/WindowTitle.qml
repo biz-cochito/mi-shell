@@ -3,9 +3,8 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Hyprland
-// import Quickshell.Widgets
 
-RowLayout {
+Row {
     id: root
 
     readonly property var activeWindow: Hyprland.toplevels.values.find((t) => {
@@ -22,7 +21,7 @@ RowLayout {
 
     Text {
         anchors.verticalCenter: parent.verticalCenter
-        text: root.activeWindow ? "" : ""
+        text: root.activeWindow ? "" : ""
         color: Theme.text
         font.pixelSize: 16
     }

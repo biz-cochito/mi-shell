@@ -47,7 +47,7 @@ QtObject {
             accent: "#6e94b2",
             accentDim: "#4f6e87",
             active: "#7fa563",
-            border: "#b899c4",
+            border: "#353535",
             borderFocus: "#d7b2e8",
             error: "#d8647e",
             warning: "#f3be7c",

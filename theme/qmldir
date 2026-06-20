@@ -1,2 +1,3 @@
 module OmarchyTheme
 singleton Theme Theme.qml
+singleton Config Config.qml

@@ -5,10 +5,6 @@ import QtQuick.Controls
 import QtQuick.Shapes
 
 Item {
-    // border.color: root.tabSelected ? Theme.accent : "transparent"
-    // color: root.tabSelected ? Theme.accent : "transparent"
-    // radius: 30
-
     id: root
 
     property string tabText: ""

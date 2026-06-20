@@ -25,7 +25,7 @@ ListView {
                     
                     Rectangle {
                         anchors.fill: parent
-                        color: parent.containsMouse ? Theme.accentDim : "transparent"
+                        color: parent.containsMouse ? Theme.border : "transparent"
                         radius: 4
                     }
                     

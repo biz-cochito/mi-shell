@@ -1,12 +1,10 @@
-//@pragma ComponentBehavior: Bound
+pragma ComponentBehavior: Bound
+import "../../theme"
+import "../common"
 import QtQuick
-// import QtQuick.Controls.Basic
-// import QtQuick.Layouts
 import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Wayland
-import "../../theme"
-import "../common"
 
 PanelWindow {
     id: root
@@ -15,58 +13,55 @@ PanelWindow {
     property bool focus: opened ? true : false
     property int selectedTabIndex: 0 // 0: Links, 1: Files, 2: Chat
 
-    width: 400
-    height: 935
+    implicitWidth: 400
+    implicitHeight: Screen.height - Config.barHeight
     color: Theme.background
     focusable: true
     exclusionMode: ExclusionMode.Ignore
+    WlrLayershell.layer: WlrLayer.Top
 
     anchors {
         top: true
-        // bottom: true
         right: true
+        bottom: true
     }
 
     margins {
         right: opened ? 0 : -width
-        top: 26
+        top: Config.barHeight
         bottom: 0
     }
 
     Rectangle {
         anchors.fill: parent
         color: Theme.background
-        radius: Theme.borderRadius * 2
-        border.width: 1
-        border.color: Theme.background
     }
 
     Column {
         anchors.fill: parent
         anchors.margins: 8
-        spacing: 15
+        spacing: 10
 
         Row {
             id: rowTabs
+
             width: parent.width
-            spacing: 15
-            leftPadding: 24
+            spacing: 6
+            leftPadding: 12
 
             TabItem {
                 tabText: " Notes"
                 tabSelected: root.selectedTabIndex === 0
                 onClicked: root.selectedTabIndex = 0
             }
+
             TabItem {
                 tabText: "󰉋 Files"
                 tabSelected: root.selectedTabIndex === 1
                 onClicked: root.selectedTabIndex = 1
             }
             // TabItem {
-            //     tabText: "󰭻 Chat"
-            //     tabSelected: root.selectedTabIndex === 2
-            //     onClicked: root.selectedTabIndex = 2
-            // }
+
         }
 
         Loader {
@@ -77,48 +72,61 @@ PanelWindow {
 
         Component {
             id: notesComponent
+
             Item {
                 anchors.fill: parent
+                Component.onCompleted: {
+                    if (root.opened)
+                        notesInput.control.forceActiveFocus();
 
-                Connections {
-                    target: root
-                    function onOpenedChanged() {
-                        if (root.opened) {
-                            notesInput.control.forceActiveFocus()
-                        }
-                    }
+                }
+                Keys.onEscapePressed: {
+                    root.opened = false;
                 }
 
-                Component.onCompleted: {
-                    if (root.opened) {
-                        notesInput.control.forceActiveFocus()
+                Connections {
+                    function onOpenedChanged() {
+                        if (root.opened)
+                            notesInput.control.forceActiveFocus();
+
                     }
+
+                    target: root
                 }
 
                 HyprlandFocusGrab {
                     id: grab
+
                     windows: [root, notesInput.control]
                 }
 
                 Notepad {
                     id: notesInput
+
                     anchors.top: parent.top
                 }
+
             }
+
         }
 
         Component {
             id: filesComponent
+
             FileManager {
                 anchors.fill: parent
             }
+
         }
+
     }
 
-    Behavior on margins.top {
+    Behavior on margins.right {
         NumberAnimation {
-            duration: 300
+            duration: 150
             easing.type: Easing.OutCubic
         }
+
     }
+
 }

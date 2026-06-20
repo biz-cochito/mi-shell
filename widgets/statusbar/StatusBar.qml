@@ -13,7 +13,7 @@ PanelWindow {
     property PanelWindow rightPanel
     WlrLayershell.layer: WlrLayer.Top
 
-    implicitHeight: 26
+    implicitHeight: Config.barHeight
     color: Theme.background
     focusable: true
 
@@ -85,7 +85,7 @@ PanelWindow {
 
             Text {
                 anchors.verticalCenter: parent.verticalCenter
-                text: Qt.formatDateTime(systemClock.date, "ddd dd MMM  hh:mm")
+                text: Qt.formatDateTime(systemClock.date, "hh:mm AP")
                 color: Theme.text
                 font.family: Theme.fontFamily
             }
@@ -95,7 +95,7 @@ PanelWindow {
                 width: root.height
                 height: root.height
                 cursorShape: Qt.PointingHandCursor
-                onClicked: rightPanel.opened = !rightPanel.opened 
+                onClicked: rightPanel.opened = !rightPanel.opened
 
                 Text {
                     id: rightPanelButton
@@ -104,7 +104,7 @@ PanelWindow {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.centerIn: parent
                     color: rightPanel && rightPanel.opened ? Theme.active : Theme.text
-                    
+
                     states: State {
                         name: "rotated"
                         when: rightPanel.opened
@@ -114,7 +114,7 @@ PanelWindow {
                     transitions: Transition {
                         RotationAnimation { duration: 150; direction: RotationAnimation.Shortest }
                     }
-                    
+
                 }
             }
         }

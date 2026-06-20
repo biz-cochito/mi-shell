@@ -1,18 +1,20 @@
+pragma ComponentBehavior: Bound
 import "../../theme"
 import QtQuick
-import QtQuick.Layouts
 import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Wayland
+import "../common"
 
 PanelWindow {
     id: root
 
     property bool opened: false
+    property int selectedTabIndex: 0
 
-    height: 935
-    width: 360
-    color: "transparent"
+    implicitHeight: Screen.height - Config.barHeight
+    implicitWidth: 360
+    color: Theme.accent
     exclusionMode: ExclusionMode.Ignore
     WlrLayershell.layer: WlrLayer.Top
 
@@ -24,78 +26,111 @@ PanelWindow {
 
     anchors {
         top: true
-        // bottom: true
         left: true
+        bottom: true
     }
 
     margins {
         left: opened ? 0 : -width
-        top: 26
+        top: Config.barHeight
         bottom: 0
     }
 
     Rectangle {
         anchors.fill: parent
         color: Theme.background
-        border.width: 1
-        border.color: Theme.background
+    }
 
+    Column {
+        anchors.fill: parent
+        anchors.margins: 8
+        spacing: 10
+
+        // --- Header ---
         Rectangle {
             id: panelHeader
+
             width: parent.width
-            height: 40
+            height: 32
             color: "transparent"
 
-            Text {
-                color: Theme.accent
+            ThemeText {
                 text: "mishell"
+                color: Theme.accent
                 font.pixelSize: 20
                 font.bold: true
-                font.family: Theme.fontFamily
                 font.italic: true
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter
-                anchors.margins: 10
+                anchors.leftMargin: 4
             }
-
         }
 
-        Rectangle {
-            anchors.fill: parent
-            anchors.topMargin: panelHeader.height
-            color: "transparent"
-            Column {
+        // --- Tab Row ---
+        Row {
+            id: rowTabs
+
+            width: parent.width
+            spacing: 6
+            leftPadding: 4
+
+            TabItem {
+                tabText: "󰏘 Theme"
+                tabSelected: root.selectedTabIndex === 0
+                onClicked: root.selectedTabIndex = 0
+            }
+
+            TabItem {
+                tabText: " Settings"
+                tabSelected: root.selectedTabIndex === 1
+                onClicked: root.selectedTabIndex = 1
+            }
+        }
+
+        // --- Tab Content ---
+        Loader {
+            width: parent.width
+            height: parent.height - panelHeader.height - rowTabs.height - parent.spacing * 2
+            sourceComponent: {
+                switch (root.selectedTabIndex) {
+                case 0:
+                    return themeComponent;
+                case 1:
+                    return settingsComponent;
+                default:
+                    return themeComponent;
+                }
+            }
+        }
+
+        // --- Tab Components ---
+
+        Component {
+            id: themeComponent
+
+            ThemeChooser {}
+        }
+
+        Component {
+            id: settingsComponent
+
+            Item {
                 anchors.fill: parent
-                anchors.margins: 8
-                spacing: 10
 
-                Text {
-                    text: "Settings"
-                    color: Theme.text
+                ThemeText {
+                    text: "Settings — coming soon"
+                    color: Theme.textMuted
+                    anchors.centerIn: parent
+                    font.pixelSize: 14
                 }
-
-                Text {
-                    text: "Configuration"
-                    color: Theme.text
-                }
-
-                Text {
-                    text: "Hyprland Toggles"
-                    color: Theme.text
-                }
-
             }
-
         }
-
     }
 
-    Behavior on margins.top {
+    Behavior on margins.left {
         NumberAnimation {
-            duration: 300
-            easing.type: Easing.OutInBounce
+            duration: 150
+            easing.type: Easing.OutCubic
         }
-
     }
-
 }

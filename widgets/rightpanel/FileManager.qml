@@ -69,13 +69,13 @@ Item {
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: 10
-        spacing: 10
+        anchors.margins: 2
+        spacing: 0
 
         // Header
         RowLayout {
             Layout.fillWidth: true
-            spacing: 10
+            spacing: 12
 
             ThemeText {
                 text: "󰁍" // Back arrow icon
@@ -117,7 +117,7 @@ Item {
             }
 
             ThemeText {
-                text: root.isGridView ? "󰕯" : "󰕰"
+                text: root.isGridView ? "" : "󰕰"
                 font.pixelSize: 18
                 color: Theme.textMuted
 
