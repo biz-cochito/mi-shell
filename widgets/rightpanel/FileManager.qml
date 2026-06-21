@@ -70,7 +70,7 @@ Item {
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: 2
+        anchors.margins: 0
         spacing: 4
 
         // Header

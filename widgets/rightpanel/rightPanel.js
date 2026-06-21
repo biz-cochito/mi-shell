@@ -20,35 +20,33 @@ function exportLinks(nameField, exportProcess, textArea) {
         fileName = "links_" + timestamp;
     }
 
-    if (!fileName.endsWith(".txt")) {
-        fileName += ".txt";
-    }
-
-    let expectedFileName = fileName;
+    // let expectedFileName = fileName;
     let expectedPath =
         Quickshell.env("HOME") +
         "/AppData/Configs/Default/Links/" +
-        expectedFileName;
+        fileName +
+        ".txt";
 
-    let FILE_EXISTS;
+    let FILE_EXISTS = false;
     try {
         let existingContent = Quickshell.readFile(expectedPath);
         if (existingContent !== null && existingContent !== undefined) {
-            fileContent = existingContent + "\n" + fileContent;
+            fileContent = existingContent + "\n" + fileContent + "\n";
             FILE_EXISTS = true;
-        } else {
-            FILE_EXISTS = false;
         }
     } catch (e) {
         // File does not exist yet or cannot be read, proceed as normal
     }
 
     if (!FILE_EXISTS) {
-        fileContent = `${fileName}\n${textArea.text}`;
+        fileContent = "--- " + fileName + "\n" + fileContent + "\n";
     }
 
     let exportPath =
-        Quickshell.env("HOME") + "/AppData/Configs/Default/Links/" + fileName;
+        Quickshell.env("HOME") +
+        "/AppData/Configs/Default/Links/" +
+        fileName +
+        ".txt";
 
     exportProcess.command = [
         "sh",

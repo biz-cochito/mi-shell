@@ -67,7 +67,7 @@ Rectangle {
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: 4
-        spacing: 10
+        spacing: 8
 
         RowLayout {
             id: fmRow
@@ -158,6 +158,7 @@ Rectangle {
                     color: Theme.text
                     anchors.fill: view
                     font.pixelSize: 16
+                    font.family: Theme.fontFamily
                     wrapMode: TextEdit.Wrap
                     selectByMouse: true
                     padding: 6
