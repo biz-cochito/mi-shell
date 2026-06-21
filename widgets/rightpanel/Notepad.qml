@@ -6,6 +6,7 @@ import Quickshell.Hyprland
 import Quickshell.Wayland
 import Quickshell.Io
 import "../../theme"
+import "../common"
 import "rightPanel.js" as JS
 
 Rectangle {
@@ -65,16 +66,18 @@ Rectangle {
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: 10
+        anchors.margins: 4
         spacing: 10
 
         RowLayout {
+            id: fmRow
+            readonly property int rowHeight: 38
             Layout.fillWidth: true
             spacing: 10
 
             Rectangle {
                 Layout.fillWidth: true
-                height: 30
+                implicitHeight: fmRow.rowHeight
                 color: Theme.background
                 border.color: nameField.activeFocus ? Theme.accent : "transparent"
                 border.width: 1
@@ -90,17 +93,16 @@ Rectangle {
                 TextInput {
                     id: nameField
                     anchors.fill: parent
-                    anchors.leftMargin: 10
-                    anchors.rightMargin: 10
+                    anchors.leftMargin: 4
+                    anchors.rightMargin: 4
                     color: Theme.text
-                    font.pixelSize: 14
+                    font.pixelSize: 16
                     verticalAlignment: TextInput.AlignVCenter
                     clip: true
-                    
-                    Text {
+
+                    ThemeText {
                         text: "File name (optional)"
                         color: Theme.textMuted
-                        font.pixelSize: 14
                         anchors.fill: parent
                         verticalAlignment: Text.AlignVCenter
                         visible: !nameField.text && !nameField.activeFocus
@@ -109,16 +111,16 @@ Rectangle {
             }
 
             Rectangle {
-                width: 80
-                height: 30
-                color: Theme.accent
+                implicitWidth: 80
+                implicitHeight: fmRow.rowHeight
+                color: Theme.accentDim
                 radius: Theme.borderRadius
 
-                Text {
+                ThemeText {
                     anchors.centerIn: parent
                     text: "Save"
                     color: Theme.background
-                    font.pixelSize: 14
+                    font.pixelSize: 16
                     font.bold: true
                 }
 
@@ -146,6 +148,8 @@ Rectangle {
                 width: scroll.width
                 height: Math.max(scroll.height, textArea.implicitHeight)
                 radius: Theme.borderRadius
+                border.width: 1
+                border.color: root.focus ? Theme.border : "transparent"
 
                 TextEdit {
                     id: textArea
@@ -156,8 +160,8 @@ Rectangle {
                     font.pixelSize: 16
                     wrapMode: TextEdit.Wrap
                     selectByMouse: true
-                    padding: 10
-                    
+                    padding: 6
+
                     onTextChanged: {
                         if (!root.isLoading) {
                             debounceTimer.restart();

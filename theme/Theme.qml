@@ -20,7 +20,7 @@ QtObject {
     property color accent
     property color accentDim
     property color active
-    
+
     // Borders
     property color border
     property color borderFocus
@@ -47,7 +47,7 @@ QtObject {
             accent: "#6e94b2",
             accentDim: "#4f6e87",
             active: "#7fa563",
-            border: "#353535",
+            border: "#4f6e87",
             borderFocus: "#d7b2e8",
             error: "#d8647e",
             warning: "#f3be7c",
@@ -172,6 +172,23 @@ QtObject {
             warning: "#f6c177",
             success: "#31748f",
             info: "#9ccfd8"
+        },
+        "Plum": {
+            background: "#14111a",
+            surface: "#6b5e72",
+            text: "#d8d0dc",
+            textMuted: "#c3a5ca",
+            textActive: "#14111a",
+            textBright: "#e7dfe9",
+            accent: "#a87692",
+            accentDim: "#8d5f74",
+            active: "#b57a92",
+            border: "#6b5e72",
+            borderFocus: "#8d5f74",
+            error: "#94abd1",
+            warning: "#c994b3",
+            success: "#94d1ab",
+            info: "#7e95c1"
         }
     })
 

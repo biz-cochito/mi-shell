@@ -22,13 +22,13 @@ ListView {
                     anchors.fill: parent
                     hoverEnabled: true
                     cursorShape: Qt.PointingHandCursor
-                    
+
                     Rectangle {
                         anchors.fill: parent
                         color: parent.containsMouse ? Theme.border : "transparent"
-                        radius: 4
+                        radius: Theme.borderRadius
                     }
-                    
+
                     onClicked: {
                         let sep = root.currentPath === "/" ? "" : "/";
                         let fullPath = root.currentPath + sep + name;

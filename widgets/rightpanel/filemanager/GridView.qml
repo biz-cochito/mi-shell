@@ -61,7 +61,7 @@ GridView {
 
             Timer {
                 id: hoverTimer
-                interval: 350
+                interval: 950
                 running: ma.containsMouse
                 onTriggered: {
                     if (ma.containsMouse) {

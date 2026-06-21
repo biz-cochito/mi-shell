@@ -5,13 +5,14 @@ import Quickshell
 import Quickshell.Io
 import "../../theme"
 import "../common"
+import "filemanager"
 
 Item {
     id: root
 
     property string currentPath: Quickshell.env("HOME") || "/"
     property bool showHiddenFiles: false
-    property bool isGridView: false
+    property bool isGridView: true
 
     ListModel {
         id: fileModel
@@ -44,17 +45,17 @@ Item {
 
     Process {
         id: lsProcess
-        
+
         stdout: SplitParser {
             splitMarker: "\u0000"
             onRead: line => {
                 if (line === "") return;
-                
+
                 let isDirectory = line.endsWith("/");
                 let fileName = isDirectory ? line.substring(0, line.length - 1) : line;
-                
+
                 if (!root.showHiddenFiles && fileName.startsWith(".")) return;
-                
+
                 fileModel.append({
                     name: fileName,
                     isDir: isDirectory
@@ -70,7 +71,7 @@ Item {
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: 2
-        spacing: 0
+        spacing: 4
 
         // Header
         RowLayout {
@@ -106,7 +107,7 @@ Item {
 
             ThemeText {
                 text: root.showHiddenFiles ? "󰈈" : "󰈉"
-                font.pixelSize: 18
+                font.pixelSize: 17
                 color: Theme.textMuted
 
                 MouseArea {
@@ -127,12 +128,27 @@ Item {
                     onClicked: root.isGridView = !root.isGridView
                 }
             }
+
+            RowLayout {
+                implicitHeight: 3
+                spacing: 1
+                Rectangle {
+                    implicitHeight: 3
+                    color: Theme.active
+                }
+            }
         }
+
 
         Loader {
             Layout.fillWidth: true
             Layout.fillHeight: true
             source: root.isGridView ? "filemanager/GridView.qml" : "filemanager/ListView.qml"
         }
+
+    }
+    PreviewBox {
+        previewHeight: root.height / 2.5
+        previewWidth: root.width
     }
 }

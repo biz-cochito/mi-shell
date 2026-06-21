@@ -27,14 +27,17 @@ PanelWindow {
     }
 
     margins {
-        right: opened ? 0 : -width
-        top: Config.barHeight
-        bottom: 0
+        right: opened ? 12 : -width
+        top: Config.barHeight + 12
+        bottom: 12
     }
 
     Rectangle {
         anchors.fill: parent
         color: Theme.background
+        border.color: Theme.border
+        border.width: 1
+        radius: Theme.borderRadius
     }
 
     Column {
@@ -47,7 +50,8 @@ PanelWindow {
 
             width: parent.width
             spacing: 6
-            leftPadding: 12
+            leftPadding: 6
+            topPadding: 6
 
             TabItem {
                 tabText: " Notes"
