@@ -4,6 +4,7 @@ import "../"
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
+import Quickshell.Widgets
 
 PanelWindow {
     id: root
@@ -46,13 +47,24 @@ PanelWindow {
                 height: root.height
                 cursorShape: Qt.PointingHandCursor
                 onClicked: root.leftPanel.opened = !root.leftPanel.opened
+                
+                ClippingRectangle {
+                    anchors.fill: parent
+                    color: "transparent"
 
-                Text {
-                    id: leftPanelButton
-                    text: ""
-                    font.pixelSize: 16
-                    anchors.centerIn: parent
-                    color: root.leftPanel && root.leftPanel.opened ? Theme.active : Theme.text
+                    IconImage {
+                        id: leftPanelButton
+                        source: Qt.resolvedUrl("../assets/mishell.svg")
+                        implicitHeight: parent.height
+                        implicitWidth: parent.height
+                    }
+
+                // Text {
+                //     id: leftPanelButton
+                //     text: "󰲝"
+                //     font.pixelSize: 16
+                //     anchors.centerIn: parent
+                //     color: root.leftPanel && root.leftPanel.opened ? Theme.active : Theme.text
 
                     states: State {
                         name: "rotated"
@@ -128,3 +140,4 @@ PanelWindow {
         }
     }
 }
+
