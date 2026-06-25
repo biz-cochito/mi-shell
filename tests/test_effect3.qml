@@ -1,6 +1,6 @@
 import QtQuick
 import Qt5Compat.GraphicalEffects
-import "theme"
+import "../global"
 
 Item {
     id: root

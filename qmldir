@@ -1,0 +1,16 @@
+singleton Config Config.qml
+FileManager apps/filemanager/FileManager.qml
+GridView apps/filemanager/GridView.qml
+LeftPanel panels/LeftPanel.qml
+ListView apps/filemanager/ListView.qml
+Notepad apps/Notepad.qml
+PreviewBox apps/filemanager/PreviewBox.qml
+RightPanel panels/RightPanel.qml
+singleton GlobalState GlobalState.qml
+StatusBar panels/StatusBar.qml
+TabItem components/TabItem.qml
+singleton Theme Theme.qml
+ThemeChooser apps/ThemeChooser.qml
+ThemeText components/ThemeText.qml
+WindowTitle components/WindowTitle.qml
+WorkspaceSwitcher components/WorkspaceSwitcher.qml

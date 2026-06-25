@@ -1,14 +1,21 @@
 import QtQuick
 import Quickshell
 import Quickshell.Hyprland
-import "./widgets/statusbar"
-import "./widgets/leftpanel"
-import "./widgets/rightpanel"
-import "./widgets/common"
-
 
 ShellRoot {
     id: root
+
+    Item {
+        id: escapeGrabber
+        focus: true
+
+        Keys.onEscapePressed: {
+            if (leftPanel.opened || rightPanel.opened) {
+                leftPanel.opened = false
+                rightPanel.opened = false
+            }
+        }
+    }
 
     StatusBar {
         id: statusBar
@@ -33,6 +40,7 @@ ShellRoot {
 
             if (rightPanel.opened) {
                 Hyprland.dispatch("hl.dsp.cursor.move({ x=1300, y=500 })")
+                Hyprland.dispatch("hl.dsp.cursor.move({ x=1305, y=495 })")
             }
 
         }
