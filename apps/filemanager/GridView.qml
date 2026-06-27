@@ -33,7 +33,7 @@ GridView {
         MouseArea {
             id: ma
             anchors.fill: parent
-            anchors.margins: 4
+            anchors.margins: 2
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
 
@@ -96,7 +96,7 @@ GridView {
                     ThemeText {
                         anchors.centerIn: parent
                         text: isDir ? "󰉋" : (isVideo ? "󰕧" : (isAudio ? "󰎆" : "󰈔"))
-                        font.pixelSize: 40
+                        font.pixelSize: 50
                         color: isDir ? Theme.accent : Theme.textMuted
                         visible: thumbImage.status !== Image.Ready
                     }

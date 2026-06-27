@@ -21,9 +21,9 @@ PanelWindow {
 
     Keys.onTabPressed: {
         if (root.selectedTabIndex < 2)
-            root.selectedTabIndex++
+        root.selectedTabIndex++
         else
-            root.selectedTabIndex = 0
+        root.selectedTabIndex = 0
     }
 
     HyprlandFocusGrab {
@@ -31,8 +31,6 @@ PanelWindow {
 
         windows: [root]
     }
-
-
 
     anchors {
         top: true
@@ -49,8 +47,8 @@ PanelWindow {
     Rectangle {
         anchors.fill: parent
         color: Theme.background
-        border.color: Theme.border
-        border.width: 2
+        border.color: Theme.accent
+        border.width: 1
         radius: Theme.borderRadius
     }
 
@@ -94,7 +92,7 @@ PanelWindow {
                 anchors.fill: parent
                 Component.onCompleted: {
                     if (root.opened)
-                        notesInput.control.forceActiveFocus();
+                    notesInput.control.forceActiveFocus();
 
                 }
                 Keys.onEscapePressed: {
@@ -104,7 +102,7 @@ PanelWindow {
                 Connections {
                     function onOpenedChanged() {
                         if (root.opened)
-                            notesInput.control.forceActiveFocus();
+                        notesInput.control.forceActiveFocus();
 
                     }
 

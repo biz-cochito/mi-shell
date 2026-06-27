@@ -1,13 +1,15 @@
 //@pragma ComponentBehavior: Bound
 import QtQuick
+import QtQuick.Layouts
 import "../"
 import Quickshell.Hyprland
+import QtQuick.Effects
 import "../panels/statusBar.js" as JS
 
 Row {
     id: root
     spacing: 2
-    anchors.verticalCenter: parent.verticalCenter
+    height: Config.barHeight
 
     Repeater {
         id: workspaceRepeater
@@ -16,19 +18,20 @@ Row {
 
         delegate: Rectangle {
             id: delegateRoot
+            anchors.verticalCenter: root.verticalCenter
 
             required property var modelData
-            height: Theme.fontSize + 4
-            width: modelData.focused ? 42 : 20
+            height: Theme.fontSize * 1.75
+            width: modelData.focused ? 32 : height
 
-            radius: Theme.borderRadius
-            color: delegateRoot.modelData.urgent ? Theme.error : delegateRoot.modelData.focused ? Theme.accent : "transparent"
+            radius: height / 2
+            color: delegateRoot.modelData.urgent ? Theme.error : delegateRoot.modelData.focused ? Theme.accent : Theme.surface
 
             Behavior on width {
-                NumberAnimation {
-                    duration: 450
-                    easing.type: Easing.OutCubic
-                    easing.overshoot: 2.85
+                PropertyAnimation {
+                    duration: 250
+                    easing.type: Easing.InCubic
+                    easing.overshoot: 8.85
                 }
             }
 

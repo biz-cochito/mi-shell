@@ -20,11 +20,11 @@ Item {
         fileModel.clear();
         if (root.currentPath === "") root.currentPath = "/";
         lsProcess.command = [
-            "sh",
-            "-c",
-            "find \"$1\" -mindepth 1 -maxdepth 1 \\( -type d -o -xtype d \\) -printf '%f/\\0' | sort -z; find \"$1\" -mindepth 1 -maxdepth 1 ! \\( -type d -o -xtype d \\) -printf '%f\\0' | sort -z",
-            "_",
-            root.currentPath
+        "sh",
+        "-c",
+        "find \"$1\" -mindepth 1 -maxdepth 1 \\( -type d -o -xtype d \\) -printf '%f/\\0' | sort -z; find \"$1\" -mindepth 1 -maxdepth 1 ! \\( -type d -o -xtype d \\) -printf '%f\\0' | sort -z",
+        "_",
+        root.currentPath
         ];
         lsProcess.running = true;
     }
@@ -55,8 +55,8 @@ Item {
                 if (!root.showHiddenFiles && fileName.startsWith(".")) return;
 
                 fileModel.append({
-                    name: fileName,
-                    isDir: isDirectory
+                        name: fileName,
+                        isDir: isDirectory
                 });
             }
         }
@@ -75,6 +75,7 @@ Item {
         RowLayout {
             Layout.fillWidth: true
             spacing: 12
+            anchors.margins: 4
 
             ThemeText {
                 text: "󰁍" // Back arrow icon
@@ -137,7 +138,6 @@ Item {
             }
         }
 
-
         Loader {
             Layout.fillWidth: true
             Layout.fillHeight: true
@@ -148,7 +148,7 @@ Item {
             id: previewBox
             visible: true
             Layout.fillWidth: true
-            previewHeight: 215
+            previewHeight: root.height / 2.5
             isDir: false
             isVideo: false
             isAudio: false

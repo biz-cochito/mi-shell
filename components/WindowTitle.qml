@@ -29,7 +29,7 @@ Row {
     Text {
         id: label
 
-        text: root.activeWindow ? root.activeWindow.title : "GNU/Linux"
+        text: root.activeWindow ? root.activeWindow.title : " GNU/Linux"
         font.pixelSize: 14
         font.family: Theme.fontFamily
         color: Theme.text

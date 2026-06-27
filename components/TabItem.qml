@@ -14,8 +14,8 @@ Item {
 
     signal clicked()
 
-    implicitWidth: buttonText.implicitWidth * 1.5
-    implicitHeight: buttonText.implicitHeight * 2
+    implicitWidth: buttonText.implicitWidth * 1.25
+    implicitHeight: buttonText.implicitHeight * 1.75
 
     Rectangle {
         id: tabItem

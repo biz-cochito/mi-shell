@@ -8,17 +8,16 @@ import Quickshell.Wayland
 PanelWindow {
     id: root
 
-    property bool opened: false
+    property bool opened: GlobalState.leftPanelOpen
     property int selectedTabIndex: 0
 
     focusable: true
 
-    implicitHeight: Screen.height - Config.barHeight
-    implicitWidth: 360
-    color: Theme.accent
+    implicitHeight: Screen.height * 0.65
+    implicitWidth: Config.leftPanelWidth
+    color: "transparent"
     exclusionMode: ExclusionMode.Ignore
     WlrLayershell.layer: WlrLayer.Top
-
 
     HyprlandFocusGrab {
         id: grab
@@ -39,7 +38,7 @@ PanelWindow {
             target: root
             function onOpenedChanged() {
                 if (root.opened)
-                    escapeFocusItem.forceActiveFocus();
+                escapeFocusItem.forceActiveFocus();
             }
         }
     }
@@ -47,24 +46,28 @@ PanelWindow {
     anchors {
         top: true
         left: true
-        bottom: true
+        // bottom: opened ? true : false
     }
 
     margins {
-        left: opened ? 0 : -width
-        top: Config.barHeight
-        bottom: 0
+        left: Config.leftPanelMargin
+        top: opened ? Config.barHeight - 1 : -escapeFocusItem.height
+        // bottom: 8
     }
 
     Rectangle {
         anchors.fill: parent
         color: Theme.background
+        bottomRightRadius: Theme.borderRadius
+        bottomLeftRadius: Theme.borderRadius
+        border.width: 0
+        // border.color: Theme.surface
     }
 
     Column {
         anchors.fill: parent
         anchors.margins: 8
-        spacing: 10
+        spacing: 2
 
         // --- Header ---
         Rectangle {
@@ -76,8 +79,8 @@ PanelWindow {
 
             ThemeText {
                 text: "mishell"
-                color: Theme.accent
-                font.pixelSize: 20
+                color: Theme.active
+                font.pixelSize: 22
                 font.bold: true
                 font.italic: true
                 anchors.left: parent.left
@@ -112,11 +115,11 @@ PanelWindow {
             height: parent.height - panelHeader.height - rowTabs.height - parent.spacing * 2
             sourceComponent: {
                 switch (root.selectedTabIndex) {
-                case 0:
+                    case 0:
                     return themeComponent;
-                case 1:
+                    case 1:
                     return settingsComponent;
-                default:
+                    default:
                     return themeComponent;
                 }
             }
@@ -146,9 +149,9 @@ PanelWindow {
         }
     }
 
-    Behavior on margins.left {
+    Behavior on margins.top {
         NumberAnimation {
-            duration: 150
+            duration: 250
             easing.type: Easing.OutCubic
         }
     }
