@@ -31,7 +31,7 @@ PanelWindow {
         focus: root.opened
 
         Keys.onEscapePressed: {
-            root.opened = false
+            GlobalState.leftPanelOpen = false
         }
 
         Connections {

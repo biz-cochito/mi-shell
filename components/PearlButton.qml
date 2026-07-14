@@ -35,8 +35,8 @@ WrapperRectangle {
         Image {
             id: leftPanelButton
             source: root.baseImage
-            height: mouseArea.height * 0.9
-            width: height * 0.9
+            height: mouseArea.height * 0.8
+            width: height * 0.8
             fillMode: Image.PreserveAspectFit
             mipmap: true
             anchors.centerIn: parent
@@ -62,7 +62,7 @@ WrapperRectangle {
         ColorOverlay {
             id: leftButtonColor
             source: root.baseImage
-            color: Theme.active
+            color: Theme.text
             anchors.fill: leftPanelButton
 
             states: [
@@ -71,7 +71,7 @@ WrapperRectangle {
                 when: root.lbHover && !GlobalState.leftPanelOpen
                 PropertyChanges {
                     leftButtonColor {
-                        color: Theme.accent
+                        color: Theme.active
                     }
                 }
             },
@@ -119,24 +119,34 @@ WrapperRectangle {
 
             opacity: 1
 
-            SequentialAnimation on opacity {
+            RotationAnimator on rotation {
+                target: leftPanelButton
+                from: 0
+                to: 360
+                duration: 20000
                 loops: Animation.Infinite
                 running: true
-
-                OpacityAnimator {
-                    from: 0.6
-                    to: 0.2
-                    duration: 1700
-                    easing.type: Easing.InCubic
-                }
-
-                OpacityAnimator {
-                    from: 0.2
-                    to: 0.6
-                    duration: 1700
-                    easing.type: Easing.InCubic
-                }
             }
+
+            // SequentialAnimation on opacity {
+            //     loops: Animation.Infinite
+            //     running: true
+
+            //     OpacityAnimator {
+            //         from: 0.6
+            //         to: 0.2
+            //         duration: 1700
+            //         easing.type: Easing.InCubic
+            //     }
+
+            //     OpacityAnimator {
+            //         from: 0.2
+            //         to: 0.6
+            //         duration: 1700
+            //         easing.type: Easing.InCubic
+            //     }
+            // }
+
         }
     }
 }

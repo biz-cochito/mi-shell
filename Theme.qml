@@ -35,7 +35,7 @@ Singleton {
 
     // Globals
     property int borderRadius: 10
-    property string fontFamily: "Maple Mono"
+    property string fontFamily: "TX-02"
     property int fontSize: 16
 
     property var palettes: ({

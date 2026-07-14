@@ -8,7 +8,7 @@ import Quickshell.Wayland
 PanelWindow {
     id: root
 
-    property bool opened: false
+    property bool opened: GlobalState.rightPanelOpen
     property bool focus: opened ? true : false
     property int selectedTabIndex: 0 // 0: Links, 1: Files, 2: Chat
 
@@ -96,7 +96,7 @@ PanelWindow {
 
                 }
                 Keys.onEscapePressed: {
-                    root.opened = false;
+                    GlobalState.rightPanelOpen = false;
                 }
 
                 Connections {

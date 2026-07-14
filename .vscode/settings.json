@@ -1,4 +1,4 @@
 {
     "qt-qml.qmlls.additionalImportPaths": ["/usr/lib/qt6/qml"],
-    "qt-qml.qmlls.useQmlImportPathEnvVar": false,
+    "qt-qml.qmlls.useQmlImportPathEnvVar": true,
 }

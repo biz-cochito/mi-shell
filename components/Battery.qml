@@ -21,12 +21,13 @@ FlexboxLayout {
     property int batteryState: 0
     property bool isCharging: false
     property int blockWidth: 10
+    property int blockRadius: 1
     // anchors.verticalCenter: parent.verticalCenter
     direction: FlexboxLayout.Row
     justifyContent: FlexboxLayout.JustifyStart
     alignContent: FlexboxLayout.AlignStart
     alignItems: FlexboxLayout.AlignStretch
-    gap: 4
+    gap: 2
     Layout.fillWidth: true
     Layout.fillHeight: true
     Layout.margins: 4
@@ -35,32 +36,33 @@ FlexboxLayout {
         id: block1
         implicitWidth: root.blockWidth
         implicitHeight: 24
-        radius: 2
+        radius: root.blockRadius
     }
     Rectangle {
         id: block2
         implicitWidth: root.blockWidth
         implicitHeight: 24
-        radius: 2
+        radius: root.blockRadius
     }
     Rectangle {
         id: block3
         implicitWidth: root.blockWidth
         implicitHeight: 24
-        radius: 2
+        radius: root.blockRadius
     }
     Rectangle {
         id: block4
         implicitWidth: root.blockWidth
         implicitHeight: 24
-        radius: 2
+        radius: root.blockRadius
     }
     Rectangle {
         id: block5
         implicitWidth: root.blockWidth
         implicitHeight: 24
-        radius: 2
-    }        // Repeater {
+        radius: root.blockRadius
+    }
+    // Repeater {
     //     model: 5
     //     delegate: Rectangle {
     //         // > 0% -> first block active
@@ -71,7 +73,7 @@ FlexboxLayout {
     //         property bool active: root.percentage > (index * 20)
     //         implicitWidth: 15
     //         implicitHeight: 24
-    //         radius: 2
+    //         radius: root.blockRadius
 
     //         color: {
     //             if (active) {

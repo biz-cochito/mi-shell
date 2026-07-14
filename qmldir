@@ -1,12 +1,12 @@
 singleton Theme Theme.qml
 singleton GlobalState GlobalState.qml
 singleton Config Config.qml
-FadeBehavior components/FadeBehavior.qml
 FileManager apps/filemanager/FileManager.qml
 GridView apps/filemanager/GridView.qml
 LeftPanel panels/LeftPanel.qml
 ListView apps/filemanager/ListView.qml
 Notepad apps/Notepad.qml
+PearlButton components/PearlButton.qml
 PreviewBox apps/filemanager/PreviewBox.qml
 RightPanel panels/RightPanel.qml
 StatusBar panels/StatusBar.qml

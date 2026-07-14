@@ -1,4 +1,4 @@
-//@pragma ComponentBehavior: Bound
+pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import "../"
@@ -8,8 +8,9 @@ import "../panels/statusBar.js" as JS
 
 Row {
     id: root
-    spacing: 2
+    spacing: 0
     height: Config.barHeight
+
 
     Repeater {
         id: workspaceRepeater
@@ -21,10 +22,9 @@ Row {
             anchors.verticalCenter: root.verticalCenter
 
             required property var modelData
-            height: Theme.fontSize * 1.75
-            width: modelData.focused ? 32 : height
-
-            radius: height / 2
+            height: Config.barHeight
+            width: modelData.focused ? 32 : 24
+            radius: 0
             color: delegateRoot.modelData.urgent ? Theme.error : delegateRoot.modelData.focused ? Theme.accent : Theme.surface
 
             Behavior on width {
@@ -35,13 +35,14 @@ Row {
                 }
             }
 
-            Text {
+            ThemeText {
                 id: workspaceLabel
                 anchors.centerIn: parent
                 text: JS.getWorkspaceIcon(delegateRoot.modelData.id)
                 color: delegateRoot.modelData.focused ? Theme.background : Theme.text
                 font.bold: delegateRoot.modelData.focused
-                font.pixelSize: 15
+                font.pixelSize: 16
+
             }
 
             MouseArea {

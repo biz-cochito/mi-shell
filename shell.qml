@@ -1,4 +1,3 @@
-//@ pragma Preload
 //@ pragma DefaultEnv QS_DROP_EXPENSIVE_FONTS=1
 //@ pragma DefaultEnv QSG_RENDER_LOOP=threaded
 //@ pragma DefaultEnv QT_QUICK_FLICKABLE_WHEEL_DECELERATION=10000
@@ -14,24 +13,36 @@ ShellRoot {
         focus: true
 
         Keys.onEscapePressed: {
-            if (leftPanel.opened || rightPanel.opened) {
-                leftPanel.opened = false;
+            if (GlobalState.leftPanelOpen || rightPanel.opened) {
+                GlobalState.leftPanelOpen = false;
                 rightPanel.opened = false;
             }
         }
     }
-    LeftPanel {
-        id: leftPanel
+
+    LazyLoader {
+        id: leftPanelLoader
+        loading: true
+
+        LeftPanel {
+            id: leftPanel
+        }
     }
 
-    RightPanel {
-        id: rightPanel
+    LazyLoader {
+        id: rightPanelLoader
+        loading: true
+
+        RightPanel {
+            id: rightPanel
+        }
     }
+    
     StatusBar {
         id: statusBar
 
-        leftPanel: leftPanel
-        rightPanel: rightPanel
+        leftPanel: leftPanelLoader.item
+        rightPanel: rightPanelLoader.item
     }
 
     GlobalShortcut {
@@ -50,7 +61,7 @@ ShellRoot {
         name: "toggle-left-panel"
         description: "Toggle the left panel"
         onPressed: {
-            leftPanel.opened = !leftPanel.opened;
+            GlobalState.leftPanelOpen = !GlobalState.leftPanelOpen;
 
             if (leftPanel.opened) {
                 Hyprland.dispatch("hl.dsp.cursor.move({ x=200, y=500 })");
@@ -62,8 +73,8 @@ ShellRoot {
         name: "close-panels"
         description: "Close any open panels"
         onPressed: {
-            leftPanel.opened = false;
-            rightPanel.opened = false;
+            GlobalState.leftPanelOpen = false;
+            GlobalState.rightPanelOpen = false;
         }
     }
 }

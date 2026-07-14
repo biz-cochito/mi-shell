@@ -12,7 +12,8 @@ ListView {
             clip: true
 
             delegate: Item {
-                width: ListView.view.width
+                id: delegateRoot
+                width: fileList.width
                 height: 30
 
                 required property string name
@@ -31,8 +32,8 @@ ListView {
 
                     onClicked: {
                         let sep = root.currentPath === "/" ? "" : "/";
-                        let fullPath = root.currentPath + sep + name;
-                        if (isDir) {
+                        let fullPath = root.currentPath + sep + delegateRoot.name;
+                        if (delegateRoot.isDir) {
                             root.currentPath = fullPath;
                         } else {
                             openProcess.command = ["xdg-open", fullPath];
@@ -48,12 +49,12 @@ ListView {
                     spacing: 10
 
                     ThemeText {
-                        text: isDir ? "󰉋" : "󰈔"
-                        color: isDir ? Theme.accent : Theme.textMuted
+                        text: delegateRoot.isDir ? "󰉋" : "󰈔"
+                        color: delegateRoot.isDir ? Theme.accent : Theme.textMuted
                     }
 
                     ThemeText {
-                        text: name
+                        text: delegateRoot.name
                         elide: Text.ElideRight
                         Layout.fillWidth: true
                     }
