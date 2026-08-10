@@ -114,8 +114,8 @@ PanelWindow {
                         name: "rotated"
                         when: GlobalState.rightPanelOpen
                         PropertyChanges {
-                            target: rightPanelButton
-                            rotation: -90
+                            target: rightPanelButton.rotation
+                            rotation: 290
                         }
                     }
 

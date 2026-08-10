@@ -11,7 +11,9 @@ WrapperRectangle {
     property bool lbHover: mouseArea.containsMouse ? true : false
     property bool lbPressed: mouseArea.containsPress ? true : false
 
-    property var baseImage: Qt.resolvedUrl("../assets/l1-256.png")
+    property bool overlayVisible: lbHover || lbPressed
+
+    property var baseImage: Qt.resolvedUrl("../assets/l2-256.png")
     property var layerImage: Qt.resolvedUrl("../assets/l4-256.png")
 
     implicitWidth: leftPanelButton.width
@@ -35,8 +37,8 @@ WrapperRectangle {
         Image {
             id: leftPanelButton
             source: root.baseImage
-            height: mouseArea.height * 0.8
-            width: height * 0.8
+            height: mouseArea.height * 0.86
+            width: height * 0.86
             fillMode: Image.PreserveAspectFit
             mipmap: true
             anchors.centerIn: parent
@@ -58,10 +60,20 @@ WrapperRectangle {
             //     running: true
             // }
         }
+        Glow {
+            anchors.fill: leftPanelButton
+            source: leftPanelButton
+            radius: height * 0.5
+            samples: 7
+            color: GlobalState.leftPanelOpen ? Theme.active : "transparent"
+            visible: true
+            spread: 0.01
+            // visible: root.overlayVisible
+        }
 
         ColorOverlay {
             id: leftButtonColor
-            source: root.baseImage
+            source: leftPanelButton
             color: Theme.text
             anchors.fill: leftPanelButton
 
@@ -106,7 +118,7 @@ WrapperRectangle {
             anchors.fill: leftPanelButton
             source: leftPanelButton
             foregroundSource: pearlMotion
-            mode: "multiply"
+            mode: "subtract"
         }
 
         IconImage {
