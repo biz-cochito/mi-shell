@@ -5,41 +5,39 @@ import QtQuick.Layouts
 import Quickshell
 
 ListView {
-            id: fileList
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            model: fileModel
-            clip: true
+    id: fileList
+    Layout.fillWidth: true
+    Layout.fillHeight: true
+    model: fileModel
+    clip: true
 
-            delegate: Item {
-                id: delegateRoot
-                width: fileList.width
-                height: 30
+    delegate: Item {
+        id: delegateRoot
+        width: fileList.width
+        height: 30
 
-                required property string name
-                required property bool isDir
+        required property string name
+        required property bool isDir
 
-                MouseArea {
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
+        MouseArea {
+            anchors.fill: parent
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
 
-                    Rectangle {
-                        anchors.fill: parent
-                        color: parent.containsMouse ? Theme.border : "transparent"
-                        radius: Theme.borderRadius
-                    }
+            Rectangle {
+                anchors.fill: parent
+                color: parent.containsMouse ? Theme.border : "transparent"
+                radius: Theme.borderRadius
+            }
 
-                    onClicked: {
-                        let sep = root.currentPath === "/" ? "" : "/";
-                        let fullPath = root.currentPath + sep + delegateRoot.name;
-                        if (delegateRoot.isDir) {
-                            root.currentPath = fullPath;
-                        } else {
-                            openProcess.command = ["xdg-open", fullPath];
-                            openProcess.running = true;
-                        }
-                    }
+            onClicked: {
+                let sep = root.currentPath === "/" ? "" : "/";
+                let fullPath = root.currentPath + sep + delegateRoot.name;
+                if (delegateRoot.isDir) {
+                    root.currentPath = fullPath;
+                } else {
+                    openProcess.command = ["xdg-open", fullPath];
+                    openProcess.running = true;
                 }
 
                 RowLayout {
@@ -61,3 +59,5 @@ ListView {
                 }
             }
         }
+    }
+}

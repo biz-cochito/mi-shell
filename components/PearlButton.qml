@@ -51,14 +51,6 @@ WrapperRectangle {
                 loops: Animation.Infinite
                 running: true
             }
-
-            // ScaleAnimator {
-            //     target: leftPanelButton
-            //     from: 0.5
-            //     to: 1
-            //     duration: 100
-            //     running: true
-            // }
         }
         Glow {
             anchors.fill: leftPanelButton
@@ -139,26 +131,6 @@ WrapperRectangle {
                 loops: Animation.Infinite
                 running: true
             }
-
-            // SequentialAnimation on opacity {
-            //     loops: Animation.Infinite
-            //     running: true
-
-            //     OpacityAnimator {
-            //         from: 0.6
-            //         to: 0.2
-            //         duration: 1700
-            //         easing.type: Easing.InCubic
-            //     }
-
-            //     OpacityAnimator {
-            //         from: 0.2
-            //         to: 0.6
-            //         duration: 1700
-            //         easing.type: Easing.InCubic
-            //     }
-            // }
-
         }
     }
 }

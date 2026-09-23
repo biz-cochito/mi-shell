@@ -44,7 +44,5 @@ Item {
             // 5. Reference the correct ID to emit the signal
             onClicked: root.clicked()
         }
-
     }
-
 }
